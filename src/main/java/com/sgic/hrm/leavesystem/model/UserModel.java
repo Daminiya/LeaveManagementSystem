@@ -1,62 +1,23 @@
-package com.sgic.hrm.leavesystem.entity;
+package com.sgic.hrm.leavesystem.model;
 
-import java.io.Serializable;
 import java.time.ZonedDateTime;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.SecondaryTable;
-import javax.persistence.Table;
+import com.sgic.hrm.leavesystem.entity.Department;
+import com.sgic.hrm.leavesystem.entity.Role;
 
-import org.hibernate.annotations.NaturalId;
+public class UserModel {
 
-@Entity
-@Table(schema = "leave_system", name = "user")
-@SecondaryTable(name="login")
-public class User implements Serializable {
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = -346839090403770783L;
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column
 	private Integer id;
-	@NaturalId
 	private String userName;
 	private String email;
 	private String firstName;
 	private String lastName;
 	private ZonedDateTime joinDate;
-
-	@ManyToOne
-	@JoinColumn(name = "role_id")
 	private Role roleId;
-
-	@ManyToOne
-	@JoinColumn(name = "department_id")
 	private Department departmentId;
-
 	private Integer servicePeriod;
-	private ZonedDateTime createdAt;
-	private ZonedDateTime updatedAt;
-	
-	@Column(table="login")
 	private String password;
-	
-	public String getPassword() {
-		return password;
-	}
 
-	public void setPassword(String password) {
-		this.password = password;
-	}	
-	
 	public Integer getId() {
 		return id;
 	}
@@ -104,8 +65,7 @@ public class User implements Serializable {
 	public void setJoinDate(ZonedDateTime joinDate) {
 		this.joinDate = joinDate;
 	}
-	
-//	@JsonIgnore
+
 	public Role getRoleId() {
 		return roleId;
 	}
@@ -113,7 +73,7 @@ public class User implements Serializable {
 	public void setRoleId(Role roleId) {
 		this.roleId = roleId;
 	}
-//	@JsonIgnore
+
 	public Department getDepartmentId() {
 		return departmentId;
 	}
@@ -130,20 +90,12 @@ public class User implements Serializable {
 		this.servicePeriod = servicePeriod;
 	}
 
-	public ZonedDateTime getCreatedAt() {
-		return createdAt;
+	public String getPassword() {
+		return password;
 	}
 
-	public void setCreatedAt(ZonedDateTime createdAt) {
-		this.createdAt = createdAt;
-	}
-
-	public ZonedDateTime getUpdatedAt() {
-		return updatedAt;
-	}
-
-	public void setUpdatedAt(ZonedDateTime updatedAt) {
-		this.updatedAt = updatedAt;
+	public void setPassword(String password) {
+		this.password = password;
 	}
 
 }
