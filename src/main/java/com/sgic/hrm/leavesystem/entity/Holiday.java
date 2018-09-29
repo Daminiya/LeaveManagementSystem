@@ -1,6 +1,5 @@
 package com.sgic.hrm.leavesystem.entity;
 
-import java.io.Serializable;
 import java.time.ZonedDateTime;
 
 import javax.persistence.Entity;
@@ -8,27 +7,29 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.UpdateTimestamp;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 @Table(schema = "leave_system", name = "holiday")
-public class Holiday implements Serializable {
-
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = -660601087360209722L;
+@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
+public class Holiday {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 
-	@OneToOne
+	@ManyToOne
 	@JoinColumn(name = "user_id")
 	private User userId;
 	private ZonedDateTime holidayDate;
 	private String reason;
+
+	@UpdateTimestamp
 	private ZonedDateTime updatedAt;
 
 	public Integer getId() {
