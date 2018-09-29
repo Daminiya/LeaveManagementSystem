@@ -20,7 +20,6 @@ public class DepartmentServiceImpl  implements DepartmentService{
 
 	@Override
 	public List<Department> getAllDepartment() {
-
 		return departmentRepository.findAll();
 	}
 
@@ -43,6 +42,11 @@ public class DepartmentServiceImpl  implements DepartmentService{
 				return true;
 			}
 			return false;
+	}
+
+	@Override
+	public Department getById(Integer id) {
+		return departmentRepository.getOne(id);
 	}
 
 

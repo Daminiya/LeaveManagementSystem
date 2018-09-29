@@ -41,6 +41,10 @@ public class DepartmentController {
 		return response;
 	}
 	
+	@GetMapping("/department/{Id}")
+	public Department getOneById(@PathVariable("Id") Integer id) {
+		return departmentService.getById(id);
+	}
 
 	@PutMapping("/department")
 	public HttpStatus editDepartment(@RequestBody Department department) {

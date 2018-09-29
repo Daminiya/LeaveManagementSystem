@@ -10,5 +10,5 @@ public interface DepartmentService {
    List<Department> getAllDepartment();
    boolean editDepartment(Department department);
    boolean deleteDepartment(Integer id);
-   
+   Department getById(Integer id);
 }
