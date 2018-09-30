@@ -13,16 +13,16 @@ public class CalculateLieuLeaveServiceImpl implements CalculateLieuLeaveService 
 	@Autowired
 	LeaveRepository leaveRepository;
 
-
 	@Override
-	public boolean changeLieuLeaveCount(Leave leave, Integer id, Float update) {
-		boolean success = false;
-		if (leaveRepository.getOne(id) != null) {
-			leaveRepository.setRemainDays(((Leave) leaveRepository).getRemainDays()+update);
-			leaveRepository.save(leave);
-			success = true;
-			return success;
+	public boolean changeLieuLeaveCount(Integer userID, Integer leaveTypeId, Float update) {
+
+		Leave updateLeave = leaveRepository.getLeaveById(userID, leaveTypeId);
+
+		if (updateLeave != null) {
+			leaveRepository.setRemainDays(updateLeave.getRemainDays() + update, updateLeave.getId());
+			return true;
 		}
-		return success;
+		return false;
 	}
+
 }
