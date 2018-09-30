@@ -2,6 +2,8 @@ package com.sgic.hrm.leavesystem.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,7 +17,6 @@ import com.sgic.hrm.leavesystem.entity.Login;
 import com.sgic.hrm.leavesystem.service.LoginServices;
 
 @RestController
-@SessionAttributes("userName")
 public class LoginController {
 
 	@Autowired
@@ -27,13 +28,13 @@ public class LoginController {
 	}
 
 	@GetMapping("/login/user")
-	public ResponseEntity<String> getLoginCredentials(ModelMap model,
+	public ResponseEntity<String> getLoginCredentials(HttpSession session,
 			@RequestParam(value = "userName", required = false) String userName,
 			@RequestParam(value = "password", required = false) String password) {
 
-		model.put("userName", userName);
+		
 		if (loginServices.getLoginVerification(userName, password)) {
-
+			session.setAttribute("userName", userName);
 			return new ResponseEntity<>(userName, HttpStatus.OK);
 
 		}
