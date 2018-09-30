@@ -8,5 +8,5 @@ public interface LoginServices {
 
 	boolean addLoginCredential(Login login);
 	List<Login> getAllLoginCredentials();
-	String getLoginVerification(String userName,String password);
+	boolean getLoginVerification(String userName,String password);
 }

@@ -26,10 +26,14 @@ public class LoginServicesImpl implements LoginServices{
 	}
 
 	@Override
-	public String getLoginVerification(String userName, String password) {
+	public boolean getLoginVerification(String userName, String password) {
 		
-		Login authUser = loginRepository.findByUserNameAndPassword(userName, password);
+		List<Login> authUser = loginRepository.findByUserNameAndPassword(userName, password);
 		
-		return authUser.getUser().getUserName();
+		if(!authUser.isEmpty()) {
+			return true;
+		}
+			
+		return false;
 	}
 }

@@ -10,5 +10,5 @@ import com.sgic.hrm.leavesystem.entity.Login;
 public interface LoginRepository extends JpaRepository<Login, Integer>{
 	
 	@Query("SELECT lg FROM Login as lg WHERE lg.user.userName=?1 AND lg.password=?2")
-	Login findByUserNameAndPassword(String userName, String password);
+	List<Login> findByUserNameAndPassword(String userName, String password);
 }
