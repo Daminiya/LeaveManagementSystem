@@ -14,10 +14,11 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import com.sgic.hrm.leavesystem.entity.Login;
 import com.sgic.hrm.leavesystem.service.LoginService;
 
+
 @RestController
 @SessionAttributes("userName")
 public class LoginController {
-	
+
 	@Autowired
 	LoginService loginService;
 	
@@ -27,17 +28,16 @@ public class LoginController {
 	}
 
 	@GetMapping("/login/user")
-	public ResponseEntity<String> getLoginCredentials(
+	public ResponseEntity<String> getLoginCredentials(ModelMap model,
 			@RequestParam(value = "userName", required = false) String userName,
-			@RequestParam(value = "password", required = false) String password, ModelMap model) {
+			@RequestParam(value = "password", required = false) String password) {
 		
 		if(loginService.getLoginVerification(userName, password)) {
 			model.put("userName", userName);
 			return new ResponseEntity<>("Success",HttpStatus.OK);
-			
 		}
-		
+
 		return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 	}
-	
+
 }
