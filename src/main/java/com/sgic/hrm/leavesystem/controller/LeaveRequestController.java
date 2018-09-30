@@ -15,10 +15,12 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.sgic.hrm.leavesystem.entity.Leave;
 import com.sgic.hrm.leavesystem.entity.LeaveRequest;
+import com.sgic.hrm.leavesystem.entity.RejectLeaveRequest;
 import com.sgic.hrm.leavesystem.repository.LeaveRepository;
 import com.sgic.hrm.leavesystem.repository.UserRepository;
 import com.sgic.hrm.leavesystem.service.LeaveRequestService;
 import com.sgic.hrm.leavesystem.service.LeaveService;
+import com.sgic.hrm.leavesystem.service.RejectLeaveRequestService;
 
 @RestController
 public class LeaveRequestController {
@@ -30,10 +32,12 @@ public class LeaveRequestController {
 	LeaveRepository leaveRepo;
 	@Autowired
 	UserRepository userRepo;
+	@Autowired
+	RejectLeaveRequestService rejectLeaveRequestService;
 	
 
 	// Done by kowsikan
-	@PostMapping("/leaverequest")
+	@PostMapping("/leaverequest/addRequest")
 	public String addLeaveRequest(@RequestBody LeaveRequest leaveRequestObj) {
 		// save record in leave request table
 		if (leaveRequestService.addLeaveRequest(leaveRequestObj)) {
@@ -51,7 +55,7 @@ public class LeaveRequestController {
 	}
 
 	// Bone by Pakikaran
-	@DeleteMapping("/leaverequest/{id}")
+	@DeleteMapping("/leaverequest/deleteRequest/{id}")
 	public boolean deleteLeaveRequest(@PathVariable("id") int id) {
 		LeaveRequest leaveRequestObj = leaveRequestService.findLeaveRequestById(id);
 		leaveService.increaseRemaingLeaveDays(leaveRequestObj.getLeaveDays(), leaveRequestObj.getUserId().getId(),
@@ -77,6 +81,21 @@ public class LeaveRequestController {
 		return status;
 		
 	}
+	
+	//check the status below code illustrated ,done by jerobert  paki
+		/*
+		 * Set the Status Id:1 for approve leave request
+		 */
+	@PutMapping("/leaverequest/rejectleave/{statusid}")
+	public boolean addRejectLeave(@RequestBody RejectLeaveRequest rejectLeaveRequest,@PathVariable("id")int statusId) {
+		boolean sucessStatus =leaveRequestService.editLeaveRequestStatus(rejectLeaveRequest.getLeaveRequestId().getId(), statusId);//can be hard coded
+		LeaveRequest leaveRequestObj = leaveRequestService.findLeaveRequestById(rejectLeaveRequest.getLeaveRequestId().getId());
+		leaveService.increaseRemaingLeaveDays(leaveRequestObj.getLeaveDays(), leaveRequestObj.getUserId().getId(),
+				leaveRequestObj.getLeaveTypeId().getId());
+		rejectLeaveRequestService.addRejectLeaveRequest(rejectLeaveRequest);
+		return true;
+	}
+	
 	
 
 	// Test methods goes here
