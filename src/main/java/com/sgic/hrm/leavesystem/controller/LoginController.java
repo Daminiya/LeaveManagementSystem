@@ -17,27 +17,28 @@ import com.sgic.hrm.leavesystem.service.LoginServices;
 @RestController
 @SessionAttributes("userName")
 public class LoginController {
-	
+
 	@Autowired
 	LoginServices loginServices;
-	
+
 	@GetMapping("/login")
-	public List<Login> viewAllLogin(){
+	public List<Login> viewAllLogin() {
 		return loginServices.getAllLoginCredentials();
 	}
 
 	@GetMapping("/login/user")
-	public ResponseEntity<String> getLoginCredentials(
+	public ResponseEntity<String> getLoginCredentials(ModelMap model,
 			@RequestParam(value = "userName", required = false) String userName,
-			@RequestParam(value = "password", required = false) String password, ModelMap model) {
-		
-		if(loginServices.getLoginVerification(userName, password)) {
-			model.put("userName", userName);
-			return new ResponseEntity<>("Success",HttpStatus.OK);
-			
+			@RequestParam(value = "password", required = false) String password) {
+
+		model.put("userName", userName);
+		if (loginServices.getLoginVerification(userName, password)) {
+
+			return new ResponseEntity<>(userName, HttpStatus.OK);
+
 		}
-		
+
 		return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 	}
-	
+
 }
