@@ -20,6 +20,6 @@ public interface LeaveRequestService {
 
 	// edit leave request thiru
 	boolean editLeaveRequestStatus(int id, int statusId);
-	
+	//edit leave request 
 	boolean editLeaveRequestApproval(int id, int userId);
 }
