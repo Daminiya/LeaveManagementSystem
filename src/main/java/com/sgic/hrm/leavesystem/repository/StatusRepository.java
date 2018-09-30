@@ -6,4 +6,6 @@ import com.sgic.hrm.leavesystem.entity.Status;
 
 public interface StatusRepository extends JpaRepository<Status,Integer>{
 
+	// get status object by ID
+	Status findById(int id);
 }
