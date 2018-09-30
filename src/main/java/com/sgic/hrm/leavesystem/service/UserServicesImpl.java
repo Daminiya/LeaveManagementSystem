@@ -41,7 +41,7 @@ public class UserServicesImpl implements UserServices {
 	@Override
 	public User getUserById(Integer id) throws NoSuchElementException {
 		User user = userRepository.findById(id).get();
-			return user;		
+		return user;		
 	}
 
 }
