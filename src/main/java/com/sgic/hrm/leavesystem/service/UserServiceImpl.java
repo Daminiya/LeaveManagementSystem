@@ -1,5 +1,6 @@
 package com.sgic.hrm.leavesystem.service;
 
+
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,11 +10,11 @@ import com.sgic.hrm.leavesystem.entity.User;
 import com.sgic.hrm.leavesystem.repository.UserRepository;
 
 @Service
-public class UserServicesImpl implements UserServices {
-
+public class UserServiceImpl implements UserService{
+	
 	@Autowired
 	private UserRepository userRepository;
-
+	
 	@Override
 	public boolean addUser(User user) {
 		userRepository.save(user);
@@ -24,7 +25,6 @@ public class UserServicesImpl implements UserServices {
 	public List<User> getUser() {
 		return userRepository.findAll();
 	}
-
 	@Override
 	public String getUserDepartmentByUserId(Integer userId) {
 		User testUser = userRepository.getOne(userId);
@@ -36,5 +36,4 @@ public class UserServicesImpl implements UserServices {
 		return "Failed";
 
 	}
-
 }

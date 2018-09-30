@@ -13,7 +13,9 @@ import javax.persistence.ManyToOne;
 import javax.persistence.SecondaryTable;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.NaturalId;
+import org.hibernate.annotations.UpdateTimestamp;
 
 @Entity
 @Table(schema = "leave_system", name = "user")
@@ -43,7 +45,9 @@ public class User implements Serializable {
 	private Department departmentId;
 
 	private Integer servicePeriod;
+	@CreationTimestamp
 	private ZonedDateTime createdAt;
+	@UpdateTimestamp
 	private ZonedDateTime updatedAt;
 	
 	@Column(table="login")

@@ -6,45 +6,44 @@ import java.time.ZonedDateTime;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
+import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 
 @Entity
 @Table(schema = "leave_system", name = "login")
-public class Login implements Serializable {
+public class Login extends User implements Serializable {
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = -7100182369063236716L;
-	
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer id;
-		
+
 	@OneToOne(fetch = FetchType.EAGER)
-    @JoinColumn(
-        name = "userName", 
-        referencedColumnName = "userName"
-    )
-	private User user;
-	
+	@PrimaryKeyJoinColumn(name = "id", referencedColumnName = "id")
+	private Integer id;
 	private String password;
-	
-	@ManyToOne(cascade= {CascadeType.DETACH})
-	@JoinColumn(name="role_id")
+	@ManyToOne(cascade = { CascadeType.PERSIST })
+	@JoinColumn(name = "user_id")
+	private User user;
+	@ManyToOne(cascade = { CascadeType.PERSIST })
+	@JoinColumn(name = "role_id")
 	private Role roleId;
-	
-	@ManyToOne(cascade= {CascadeType.DETACH})
-	@JoinColumn(name="department_id")
+
+	@ManyToOne(cascade = { CascadeType.PERSIST })
+	@JoinColumn(name = "department_id")
 	private Department departmentId;
-	
+
 	private ZonedDateTime updatedAt;
 
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
 
 	public Integer getId() {
 		return id;
@@ -62,15 +61,7 @@ public class Login implements Serializable {
 		this.user = user;
 	}
 
-	public String getPassword() {
-		return password;
-	}
-
-	public void setPassword(String password) {
-		this.password = password;
-	}
-
-//	@JsonIgnore
+	// @JsonIgnore
 	public Role getRoleId() {
 		return roleId;
 	}
@@ -78,7 +69,7 @@ public class Login implements Serializable {
 	public void setRoleId(Role roleId) {
 		this.roleId = roleId;
 	}
-	
+
 //	@JsonIgnore
 	public Department getDepartmentId() {
 		return departmentId;

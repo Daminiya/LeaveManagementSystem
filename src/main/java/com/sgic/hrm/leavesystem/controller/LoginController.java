@@ -12,18 +12,18 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.sgic.hrm.leavesystem.entity.Login;
-import com.sgic.hrm.leavesystem.service.LoginServices;
+import com.sgic.hrm.leavesystem.service.LoginService;
 
 @RestController
 @SessionAttributes("userName")
 public class LoginController {
 	
 	@Autowired
-	LoginServices loginServices;
+	LoginService loginService;
 	
 	@GetMapping("/login")
 	public List<Login> viewAllLogin(){
-		return loginServices.getAllLoginCredentials();
+		return loginService.getAllLoginCredentials();
 	}
 
 	@GetMapping("/login/user")
@@ -31,7 +31,7 @@ public class LoginController {
 			@RequestParam(value = "userName", required = false) String userName,
 			@RequestParam(value = "password", required = false) String password, ModelMap model) {
 		
-		if(loginServices.getLoginVerification(userName, password)) {
+		if(loginService.getLoginVerification(userName, password)) {
 			model.put("userName", userName);
 			return new ResponseEntity<>("Success",HttpStatus.OK);
 			

@@ -12,18 +12,18 @@ import org.springframework.web.bind.annotation.RestController;
 import com.sgic.hrm.leavesystem.entity.Login;
 import com.sgic.hrm.leavesystem.entity.User;
 import com.sgic.hrm.leavesystem.model.UserModel;
-import com.sgic.hrm.leavesystem.service.LoginServices;
-import com.sgic.hrm.leavesystem.service.UserServices;
+import com.sgic.hrm.leavesystem.service.LoginService;
+import com.sgic.hrm.leavesystem.service.UserService;
 
 @RestController
 public class UserController {
 	
 	@Autowired
-	private UserServices userService;
+	private UserService userService;
 //	@Autowired
 //	private LeaveServices leaveService;
 	@Autowired
-	private LoginServices loginServices;
+	private LoginService loginServices;
 	
 	@PostMapping("/user")
 	public String createUser(@RequestBody UserModel userModel) {
