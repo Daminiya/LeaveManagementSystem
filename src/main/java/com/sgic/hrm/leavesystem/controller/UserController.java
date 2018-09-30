@@ -53,10 +53,14 @@ public class UserController {
 	}
 	
 	@GetMapping("/user/{Id}")
+	public User getUserById(@PathVariable("Id") Integer id) {
+		return userService.getUserById(id);
+	}
+	
+	@GetMapping("/user/{Id}/department")
 	public String getDepartmentByUserId(@PathVariable("Id") Integer id) {
 		return userService.getUserDepartmentByUserId(id);
 	}
-	
 }
 
 
