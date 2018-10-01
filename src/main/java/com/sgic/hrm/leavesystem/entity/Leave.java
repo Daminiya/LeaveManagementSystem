@@ -27,7 +27,6 @@ public class Leave implements Serializable {
 	@OneToOne
 	@JoinColumn(name = "leave_type_id")
 	private LeaveType leaveTypeId;
-
 	private float remainDays;
 	private float utilizedDays;
 

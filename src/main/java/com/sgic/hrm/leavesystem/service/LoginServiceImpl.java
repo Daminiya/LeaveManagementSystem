@@ -9,13 +9,12 @@ import com.sgic.hrm.leavesystem.entity.Login;
 import com.sgic.hrm.leavesystem.repository.LoginRepository;
 
 @Service
-public class LoginServiceImpl implements LoginService{
+public class LoginServiceImpl implements LoginService {
 	@Autowired
 	private LoginRepository loginRepository;
-	
+
 	@Override
-	public boolean addLoginCredential(Login login){
-		
+	public boolean addLoginCredential(Login login) {
 		loginRepository.save(login);
 		return true;
 	}
@@ -27,13 +26,13 @@ public class LoginServiceImpl implements LoginService{
 
 	@Override
 	public boolean getLoginVerification(String userName, String password) {
-		
+
 		List<Login> authUser = loginRepository.findByUserNameAndPassword(userName, password);
-		
-		if(!authUser.isEmpty()) {
+
+		if (!authUser.isEmpty()) {
 			return true;
 		}
-			
+
 		return false;
 	}
 }

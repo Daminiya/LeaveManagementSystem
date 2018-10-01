@@ -7,6 +7,8 @@ import com.sgic.hrm.leavesystem.entity.Login;
 public interface LoginService {
 
 	boolean addLoginCredential(Login login);
+
 	List<Login> getAllLoginCredentials();
-	boolean getLoginVerification(String userName,String password);
+
+	boolean getLoginVerification(String userName, String password);
 }

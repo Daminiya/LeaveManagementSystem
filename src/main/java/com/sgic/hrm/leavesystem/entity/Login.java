@@ -14,6 +14,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.UpdateTimestamp;
+
 @Entity
 @Table(schema = "leave_system", name = "login")
 public class Login implements Serializable {
@@ -21,30 +23,26 @@ public class Login implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = -7100182369063236716L;
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
-		
+
 	@OneToOne(fetch = FetchType.EAGER)
-    @JoinColumn(
-        name = "userName", 
-        referencedColumnName = "userName"
-    )
+	@JoinColumn(name = "userName", referencedColumnName = "userName")
 	private User user;
-	
 	private String password;
-	
-	@ManyToOne(cascade= {CascadeType.DETACH})
-	@JoinColumn(name="role_id")
+
+	@ManyToOne(cascade = { CascadeType.DETACH })
+	@JoinColumn(name = "role_id")
 	private Role roleId;
-	
-	@ManyToOne(cascade= {CascadeType.DETACH})
-	@JoinColumn(name="department_id")
+
+	@ManyToOne(cascade = { CascadeType.DETACH })
+	@JoinColumn(name = "department_id")
 	private Department departmentId;
 	
+	@UpdateTimestamp
 	private ZonedDateTime updatedAt;
-
 
 	public Integer getId() {
 		return id;
@@ -78,7 +76,7 @@ public class Login implements Serializable {
 	public void setRoleId(Role roleId) {
 		this.roleId = roleId;
 	}
-	
+
 //	@JsonIgnore
 	public Department getDepartmentId() {
 		return departmentId;
