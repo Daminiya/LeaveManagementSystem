@@ -4,7 +4,7 @@ import java.util.List;
 
 import com.sgic.hrm.leavesystem.entity.Login;
 
-public interface LoginServices {
+public interface LoginService {
 
 	boolean addLoginCredential(Login login);
 	List<Login> getAllLoginCredentials();

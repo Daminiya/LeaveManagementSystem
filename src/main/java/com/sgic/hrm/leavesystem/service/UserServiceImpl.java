@@ -10,7 +10,7 @@ import com.sgic.hrm.leavesystem.entity.User;
 import com.sgic.hrm.leavesystem.repository.UserRepository;
 
 @Service
-public class UserServicesImpl implements UserServices {
+public class UserServiceImpl implements UserService {
 
 	@Autowired
 	private UserRepository userRepository;

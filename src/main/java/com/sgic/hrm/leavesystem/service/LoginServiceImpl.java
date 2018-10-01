@@ -9,7 +9,7 @@ import com.sgic.hrm.leavesystem.entity.Login;
 import com.sgic.hrm.leavesystem.repository.LoginRepository;
 
 @Service
-public class LoginServicesImpl implements LoginServices{
+public class LoginServiceImpl implements LoginService{
 	@Autowired
 	private LoginRepository loginRepository;
 	

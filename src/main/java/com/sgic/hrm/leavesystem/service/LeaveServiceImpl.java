@@ -7,7 +7,7 @@ import com.sgic.hrm.leavesystem.entity.Leave;
 import com.sgic.hrm.leavesystem.repository.LeaveRepository;
 
 @Service
-public class LeaveServicesImpl implements LeaveServices{
+public class LeaveServiceImpl implements LeaveService{
 	@Autowired
 	private LeaveRepository leaveRepository;
 	
