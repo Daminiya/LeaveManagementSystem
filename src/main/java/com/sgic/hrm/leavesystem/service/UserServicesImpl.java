@@ -27,11 +27,11 @@ public class UserServicesImpl implements UserServices {
 
 	@Override
 	public String getUserDepartmentByUserId(Integer userId) {
-		User testUser = userRepository.getOne(userId);
-		if (testUser != null) {
-			User user = userRepository.getOne(userId);
-			String testVar = user.getDepartmentId().getDepartmentName();
-			return testVar;
+		User user = userRepository.getOne(userId);
+		if (user != null) {
+			 user = userRepository.getOne(userId);
+			String department = user.getDepartmentId().getDepartmentName();
+			return department;
 		}
 		return "Failed";
 
