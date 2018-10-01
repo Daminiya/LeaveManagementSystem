@@ -20,11 +20,12 @@ import com.sgic.hrm.leavesystem.service.LoginService;
 public class LoginController {
 
 	@Autowired
-	LoginService loginServices;
+	LoginService loginService;
+
 
 	@GetMapping("/login")
 	public List<Login> viewAllLogin() {
-		return loginServices.getAllLoginCredentials();
+		return loginService.getAllLoginCredentials();
 	}
 
 	@GetMapping("/login/user")
@@ -33,7 +34,7 @@ public class LoginController {
 			@RequestParam(value = "password", required = false) String password) {
 
 		
-		if (loginServices.getLoginVerification(userName, password)) {
+		if (loginService.getLoginVerification(userName, password)) {
 			session.setAttribute("userName", userName);
 			return new ResponseEntity<>(userName, HttpStatus.OK);
 

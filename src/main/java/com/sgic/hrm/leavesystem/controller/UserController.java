@@ -23,9 +23,9 @@ public class UserController {
 	@Autowired
 	private UserService userService;
 //	@Autowired
-//	private LeaveServices leaveService;
+//	private LeaveService leaveService;
 	@Autowired
-	private LoginService loginServices;
+	private LoginService loginService;
 	
 	@PostMapping("/user")
 	public String createUser(@RequestBody UserModel userModel) {
@@ -45,7 +45,7 @@ public class UserController {
 		login.setDepartmentId(userModel.getDepartmentId());
 		login.setPassword(userModel.getPassword());
 		login.setRoleId(userModel.getRoleId());
-		loginServices.addLoginCredential(login);
+		loginService.addLoginCredential(login);
 		return "OK";
 	}
 	
