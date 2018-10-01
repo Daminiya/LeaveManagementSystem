@@ -14,13 +14,13 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.sgic.hrm.leavesystem.entity.Login;
-import com.sgic.hrm.leavesystem.service.LoginServices;
+import com.sgic.hrm.leavesystem.service.LoginService;
 
 @RestController
 public class LoginController {
 
 	@Autowired
-	LoginServices loginServices;
+	LoginService loginServices;
 
 	@GetMapping("/login")
 	public List<Login> viewAllLogin() {

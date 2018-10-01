@@ -4,7 +4,7 @@ import java.util.List;
 
 import com.sgic.hrm.leavesystem.entity.User;
 
-public interface UserServices {
+public interface UserService {
 
 	boolean addUser(User user);
 	List<User> getUser();
