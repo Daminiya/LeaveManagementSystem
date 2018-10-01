@@ -1,5 +1,6 @@
 package com.sgic.hrm.leavesystem.service;
 
+import java.time.ZonedDateTime;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +17,7 @@ import com.sgic.hrm.leavesystem.repository.UserRepository;
 public class LeaveRequestServiceImpl implements LeaveRequestService {
 	@Autowired
 	LeaveRequestReposity leaveRequestRepo;
-	
+
 	@Autowired
 	StatusRepository statusRepo;
 	@Autowired
@@ -47,22 +48,29 @@ public class LeaveRequestServiceImpl implements LeaveRequestService {
 	}
 
 	@Override
-	public boolean editLeaveRequestStatus(int id,int statusId) {
-			LeaveRequest lrObj= leaveRequestRepo.findById(id);
-			Status statusObj=statusRepo.findById(statusId);
-			lrObj.setStatusId(statusObj);
-			leaveRequestRepo.save(lrObj);
-			return true;
+	public boolean editLeaveRequestStatus(int id, int statusId) {
+		LeaveRequest lrObj = leaveRequestRepo.findById(id);
+		Status statusObj = statusRepo.findById(statusId);
+		lrObj.setStatusId(statusObj);
+		leaveRequestRepo.save(lrObj);
+		return true;
 	}
 
 	@Override
 	public boolean editLeaveRequestApproval(int id, int userId) {
 		// TODO Auto-generated method stub
-		LeaveRequest lrObj= leaveRequestRepo.findById(id);
-		User userObj =userRepo.findById(userId);
+		LeaveRequest lrObj = leaveRequestRepo.findById(id);
+		User userObj = userRepo.findById(userId);
 		lrObj.setUserId(userObj);
 		leaveRequestRepo.save(lrObj);
 		return true;
+	}
+
+	// date wise pick the leave request records
+	@Override
+	public List<LeaveRequest> findByDate(ZonedDateTime abc) {
+		// TODO Auto-generated method stub
+		return leaveRequestRepo.findByDate(abc);
 	}
 
 }

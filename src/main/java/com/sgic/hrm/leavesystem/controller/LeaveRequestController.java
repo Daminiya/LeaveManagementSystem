@@ -1,8 +1,11 @@
 package com.sgic.hrm.leavesystem.controller;
 
+import java.time.ZonedDateTime;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.format.annotation.DateTimeFormat.ISO;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -12,12 +15,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
-
-import com.sgic.hrm.leavesystem.entity.Leave;
 import com.sgic.hrm.leavesystem.entity.LeaveRequest;
 import com.sgic.hrm.leavesystem.entity.RejectLeaveRequest;
-import com.sgic.hrm.leavesystem.repository.LeaveRepository;
-import com.sgic.hrm.leavesystem.repository.UserRepository;
 import com.sgic.hrm.leavesystem.service.LeaveRequestService;
 import com.sgic.hrm.leavesystem.service.LeaveService;
 import com.sgic.hrm.leavesystem.service.RejectLeaveRequestService;
@@ -29,12 +28,7 @@ public class LeaveRequestController {
 	@Autowired
 	LeaveService leaveService;
 	@Autowired
-	LeaveRepository leaveRepo;
-	@Autowired
-	UserRepository userRepo;
-	@Autowired
 	RejectLeaveRequestService rejectLeaveRequestService;
-	
 
 	// Done by kowsikan
 	@PostMapping("/leaverequest/addRequest")
@@ -64,54 +58,50 @@ public class LeaveRequestController {
 
 		return true;
 	}
-	//check the status below code illustrated ,done by thirupparan
+
+	// check the status below code illustrated ,done by thirupparan
 	/*
 	 * Set the Status Id:1 for approve leave request
 	 */
 	@PutMapping("/leaverequest/{id}/{status}/{userId}")
-	public ResponseEntity<String>approveLeaveRequest(@PathVariable ("id")int id, @PathVariable ("status") int statusId,@PathVariable ("userId") int userId) {
-		boolean sucessStatus =leaveRequestService.editLeaveRequestStatus(id, statusId);//can be hard coded
-		boolean successApproval=leaveRequestService.editLeaveRequestApproval(id,userId);
-		String result ="Status not show";
-		ResponseEntity<String> status = new ResponseEntity<>(result,HttpStatus.FORBIDDEN);
-		if (sucessStatus && successApproval ) {
-			result="Status sucessfully";
-			status =new ResponseEntity<>(result,HttpStatus.OK);
+	public ResponseEntity<String> approveLeaveRequest(@PathVariable("id") int id, @PathVariable("status") int statusId,
+			@PathVariable("userId") int userId) {
+		boolean sucessStatus = leaveRequestService.editLeaveRequestStatus(id, statusId);// can be hard coded
+		boolean successApproval = leaveRequestService.editLeaveRequestApproval(id, userId);
+		String result = "Status not show";
+		ResponseEntity<String> status = new ResponseEntity<>(result, HttpStatus.FORBIDDEN);
+		if (sucessStatus && successApproval) {
+			result = "Status sucessfully";
+			status = new ResponseEntity<>(result, HttpStatus.OK);
 		}
 		return status;
-		
+
 	}
-	
-	//check the status below code illustrated ,done by jerobert  paki
-		/*
-		 * Set the Status Id:1 for approve leave request
-		 */
+
+	// check the status below code illustrated ,done by jerobert paki
+	/*
+	 * Set the Status Id:1 for approve leave request
+	 */
 	@PutMapping("/leaverequest/rejectleave/{statusid}")
-	public boolean addRejectLeave(@RequestBody RejectLeaveRequest rejectLeaveRequest,@PathVariable("id")int statusId) {
-		boolean sucessStatus =leaveRequestService.editLeaveRequestStatus(rejectLeaveRequest.getLeaveRequestId().getId(), statusId);//can be hard coded
-		LeaveRequest leaveRequestObj = leaveRequestService.findLeaveRequestById(rejectLeaveRequest.getLeaveRequestId().getId());
+	public boolean addRejectLeave(@RequestBody RejectLeaveRequest rejectLeaveRequest,
+			@PathVariable("id") int statusId) {
+		leaveRequestService.editLeaveRequestStatus(rejectLeaveRequest.getLeaveRequestId().getId(), statusId);// can be
+																												// hard
+																												// coded
+		LeaveRequest leaveRequestObj = leaveRequestService
+				.findLeaveRequestById(rejectLeaveRequest.getLeaveRequestId().getId());
 		leaveService.increaseRemaingLeaveDays(leaveRequestObj.getLeaveDays(), leaveRequestObj.getUserId().getId(),
 				leaveRequestObj.getLeaveTypeId().getId());
 		rejectLeaveRequestService.addRejectLeaveRequest(rejectLeaveRequest);
 		return true;
 	}
-	
-	
 
-	// Test methods goes here
-	@GetMapping("/leaverequest/testreq1")
-	public float test1() {
-		return leaveService.increaseRemaingLeaveDays(5, 1, 1);
-	}
+	// leave request details find by date
+	@GetMapping("/leaverequest/{date}")
+	public List<LeaveRequest> getDates(@PathVariable("date") @DateTimeFormat(iso = ISO.DATE_TIME) ZonedDateTime abc) {
 
-	@GetMapping("/leaverequest/testreq2")
-	public float test2() {
-		return leaveService.decreaseRemaingLeaveDays(8, 1, 1);
-	}
+		return leaveRequestService.findByDate(abc);
 
-	@GetMapping("/leaverequest/testleave")
-	public Leave test3() {
-		return leaveRepo.findRemaingDaysByUserIdAndLeaveTypeId(1, 1);
 	}
 
 }
