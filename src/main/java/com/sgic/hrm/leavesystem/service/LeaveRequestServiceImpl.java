@@ -1,5 +1,6 @@
 package com.sgic.hrm.leavesystem.service;
 
+import java.time.ZonedDateTime;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +17,7 @@ import com.sgic.hrm.leavesystem.repository.UserRepository;
 public class LeaveRequestServiceImpl implements LeaveRequestService {
 	@Autowired
 	LeaveRequestReposity leaveRequestRepo;
+
 	@Autowired
 	StatusRepository statusRepo;
 	@Autowired
@@ -65,6 +67,7 @@ public class LeaveRequestServiceImpl implements LeaveRequestService {
 	}
 	// get details of leave request by user id
 
+
 	@Override
 	public Iterable<LeaveRequest>findByUserId(int id) {
 		// TODO Auto-generated method stub
@@ -76,4 +79,12 @@ public class LeaveRequestServiceImpl implements LeaveRequestService {
 		// TODO Auto-generated method stub
 		return leaveRequestRepo.findAll();
 	}
+
+	// date wise pick the leave request records
+	@Override
+	public List<LeaveRequest> findByDate(ZonedDateTime abc) {
+		// TODO Auto-generated method stub
+		return leaveRequestRepo.findByDate(abc);
+	}
+
 }

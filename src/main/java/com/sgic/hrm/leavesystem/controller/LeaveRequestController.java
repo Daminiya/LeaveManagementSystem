@@ -1,8 +1,11 @@
 package com.sgic.hrm.leavesystem.controller;
 
+import java.time.ZonedDateTime;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.format.annotation.DateTimeFormat.ISO;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -12,11 +15,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
-
 import com.sgic.hrm.leavesystem.entity.LeaveRequest;
 import com.sgic.hrm.leavesystem.entity.RejectLeaveRequest;
-import com.sgic.hrm.leavesystem.repository.LeaveRepository;
-import com.sgic.hrm.leavesystem.repository.UserRepository;
 import com.sgic.hrm.leavesystem.service.LeaveRequestService;
 import com.sgic.hrm.leavesystem.service.LeaveService;
 import com.sgic.hrm.leavesystem.service.RejectLeaveRequestService;
@@ -27,10 +27,6 @@ public class LeaveRequestController {
 	LeaveRequestService leaveRequestService;
 	@Autowired
 	LeaveService leaveService;
-	@Autowired
-	LeaveRepository leaveRepo;
-	@Autowired
-	UserRepository userRepo;
 	@Autowired
 	RejectLeaveRequestService rejectLeaveRequestService;
 
@@ -99,6 +95,7 @@ public class LeaveRequestController {
 		return true;
 	}
 
+///////<<<<<<< HEAD
 	// get details of leave request by user id
 	@GetMapping("/leaverequest/{userId}")
 	public ResponseEntity<Iterable<LeaveRequest>> LeaveRequestFindByUserId(@PathVariable("userId") int userId) {
@@ -110,9 +107,16 @@ public class LeaveRequestController {
 	@GetMapping("/leaverequest1")
 	public List<LeaveRequest> getLeaverequest() {
 		return leaveRequestService.getLeaverequest();
-		
 	}
+		
+///////
+	// leave request details find by date
+	@GetMapping("/leaverequest/{date}")
+	public List<LeaveRequest> getDates(@PathVariable("date") @DateTimeFormat(iso = ISO.DATE_TIME) ZonedDateTime abc) {
 
+		return leaveRequestService.findByDate(abc);
+	}
+///////
 	// Test methods goes here
 //	@GetMapping("/leaverequest/testreq1")
 //	public float test1() {
