@@ -1,6 +1,7 @@
 package com.sgic.hrm.leavesystem.controller;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,6 +14,7 @@ import com.sgic.hrm.leavesystem.entity.Login;
 import com.sgic.hrm.leavesystem.entity.User;
 import com.sgic.hrm.leavesystem.model.UserModel;
 import com.sgic.hrm.leavesystem.service.LoginServices;
+import com.sgic.hrm.leavesystem.service.ResourceNotFoundException;
 import com.sgic.hrm.leavesystem.service.UserServices;
 
 @RestController
@@ -53,10 +55,20 @@ public class UserController {
 	}
 	
 	@GetMapping("/user/{Id}")
+	public User getUserById(@PathVariable("Id") Integer id) {
+		try {
+			return userService.getUserById(id);
+		}
+		catch(NoSuchElementException ex) {
+			throw new ResourceNotFoundException();
+		
+		}
+	}
+	
+	@GetMapping("/user/{Id}/department")
 	public String getDepartmentByUserId(@PathVariable("Id") Integer id) {
 		return userService.getUserDepartmentByUserId(id);
 	}
-	
 }
 
 

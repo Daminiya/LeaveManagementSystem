@@ -2,6 +2,8 @@ package com.sgic.hrm.leavesystem.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,29 +17,29 @@ import com.sgic.hrm.leavesystem.entity.Login;
 import com.sgic.hrm.leavesystem.service.LoginServices;
 
 @RestController
-@SessionAttributes("userName")
 public class LoginController {
-	
+
 	@Autowired
 	LoginServices loginServices;
-	
+
 	@GetMapping("/login")
-	public List<Login> viewAllLogin(){
+	public List<Login> viewAllLogin() {
 		return loginServices.getAllLoginCredentials();
 	}
 
 	@GetMapping("/login/user")
-	public ResponseEntity<String> getLoginCredentials(
+	public ResponseEntity<String> getLoginCredentials(HttpSession session,
 			@RequestParam(value = "userName", required = false) String userName,
-			@RequestParam(value = "password", required = false) String password, ModelMap model) {
+			@RequestParam(value = "password", required = false) String password) {
+
 		
-		if(loginServices.getLoginVerification(userName, password)) {
-			model.put("userName", userName);
-			return new ResponseEntity<>("Success",HttpStatus.OK);
-			
+		if (loginServices.getLoginVerification(userName, password)) {
+			session.setAttribute("userName", userName);
+			return new ResponseEntity<>(userName, HttpStatus.OK);
+
 		}
-		
+
 		return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 	}
-	
+
 }

@@ -17,7 +17,6 @@ import org.hibernate.annotations.NaturalId;
 
 @Entity
 @Table(schema = "leave_system", name = "user")
-@SecondaryTable(name="login")
 public class User implements Serializable {
 	/**
 	 * 
@@ -45,17 +44,6 @@ public class User implements Serializable {
 	private Integer servicePeriod;
 	private ZonedDateTime createdAt;
 	private ZonedDateTime updatedAt;
-	
-	@Column(table="login")
-	private String password;
-	
-	public String getPassword() {
-		return password;
-	}
-
-	public void setPassword(String password) {
-		this.password = password;
-	}	
 	
 	public Integer getId() {
 		return id;

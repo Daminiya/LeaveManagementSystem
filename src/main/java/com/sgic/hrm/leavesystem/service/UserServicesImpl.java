@@ -1,6 +1,7 @@
 package com.sgic.hrm.leavesystem.service;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -35,6 +36,12 @@ public class UserServicesImpl implements UserServices {
 		}
 		return "Failed";
 
+	}
+
+	@Override
+	public User getUserById(Integer id) throws NoSuchElementException {
+		User user = userRepository.findById(id).get();
+		return user;		
 	}
 
 }
