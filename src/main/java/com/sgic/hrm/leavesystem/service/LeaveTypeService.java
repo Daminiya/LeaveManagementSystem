@@ -9,5 +9,4 @@ public interface LeaveTypeService {
 	List<LeaveType> getAllLeaveTypes();
 	boolean editLeaveType(LeaveType leaveType,Integer id);
 	boolean deleteLeaveType(Integer id);
-	
 }
