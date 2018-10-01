@@ -30,14 +30,12 @@ public class UserServiceImpl implements UserService {
 	public String getUserDepartmentByUserId(Integer userId) {
 		User user = userRepository.getOne(userId);
 		if (user != null) {
-			 user = userRepository.getOne(userId);
 			String department = user.getDepartmentId().getDepartmentName();
 			return department;
 		}
 		return "Failed";
 
 	}
-
 	@Override
 	public User getUserById(Integer id) throws NoSuchElementException {
 		User user = userRepository.findById(id).get();

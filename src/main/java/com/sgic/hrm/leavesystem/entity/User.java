@@ -3,17 +3,17 @@ package com.sgic.hrm.leavesystem.entity;
 import java.io.Serializable;
 import java.time.ZonedDateTime;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.SecondaryTable;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.NaturalId;
+import org.hibernate.annotations.UpdateTimestamp;
 
 @Entity
 @Table(schema = "leave_system", name = "user")
@@ -24,7 +24,6 @@ public class User implements Serializable {
 	private static final long serialVersionUID = -346839090403770783L;
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column
 	private Integer id;
 	@NaturalId
 	private String userName;
@@ -42,9 +41,13 @@ public class User implements Serializable {
 	private Department departmentId;
 
 	private Integer servicePeriod;
+
+	@CreationTimestamp
 	private ZonedDateTime createdAt;
+
+	@UpdateTimestamp
 	private ZonedDateTime updatedAt;
-	
+
 	public Integer getId() {
 		return id;
 	}
@@ -92,8 +95,7 @@ public class User implements Serializable {
 	public void setJoinDate(ZonedDateTime joinDate) {
 		this.joinDate = joinDate;
 	}
-	
-//	@JsonIgnore
+
 	public Role getRoleId() {
 		return roleId;
 	}
@@ -101,7 +103,7 @@ public class User implements Serializable {
 	public void setRoleId(Role roleId) {
 		this.roleId = roleId;
 	}
-//	@JsonIgnore
+
 	public Department getDepartmentId() {
 		return departmentId;
 	}
