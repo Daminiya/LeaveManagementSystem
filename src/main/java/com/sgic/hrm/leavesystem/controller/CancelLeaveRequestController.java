@@ -2,7 +2,6 @@ package com.sgic.hrm.leavesystem.controller;
 
 import java.util.List;
 
-import org.omg.CORBA.PUBLIC_MEMBER;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,7 +17,6 @@ import com.sgic.hrm.leavesystem.entity.LeaveRequest;
 import com.sgic.hrm.leavesystem.service.CancelLeaveRequestService;
 import com.sgic.hrm.leavesystem.service.LeaveRequestService;
 import com.sgic.hrm.leavesystem.service.LeaveService;
-import com.sgic.hrm.leavesystem.service.UserServices;
 
 @RestController
 public class CancelLeaveRequestController {
@@ -62,7 +60,7 @@ public class CancelLeaveRequestController {
 		String result = "Cancel requset approvel faild";
 		ResponseEntity<String> status = new ResponseEntity<>(result, HttpStatus.FORBIDDEN);
 		if (sucessCancelRequsetApproval && sucessCancelRequestRemaindays >= 0 && sucessStatus) {
-			result = "Cancel requesta approvel sucessfully";
+			result = "Cancel request approvel sucessfully";
 			status = new ResponseEntity<>(result, HttpStatus.OK);
 
 		}
@@ -70,14 +68,4 @@ public class CancelLeaveRequestController {
 
 	}
 
-	// Testing purposeonly
-//	@PutMapping("/cancelLeaveRequest/{leaveRequestId}")
-//	public float increaseReaminLeave(@PathVariable("leaveRequestId")int id) {
-//		LeaveRequest leaveRequestObj = leaveRequestService.findLeaveRequestById(id);
-//		//return leaveRequestObj.getLeaveDays() +" "+ leaveRequestObj.getUserId().getId() + " " +leaveRequestObj.getLeaveTypeId().getId(); 
-//		float sucessCancelRequestRemaindays=leaveService.increaseRemaingLeaveDays(leaveRequestObj.getLeaveDays(), leaveRequestObj.getUserId().getId(),
-//				leaveRequestObj.getLeaveTypeId().getId());
-//		return sucessCancelRequestRemaindays;
-//		
-//	}
 }
