@@ -5,8 +5,7 @@ import com.sgic.hrm.leavesystem.entity.Role;
 public interface RoleService {
 	
 	boolean addRole(Role role);
-
 	List<Role> getAllRoles();
-
+	boolean deleteRole(Integer id);
 	boolean editRole(Role role, Integer id);
 }

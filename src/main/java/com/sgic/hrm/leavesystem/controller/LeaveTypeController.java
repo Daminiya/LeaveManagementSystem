@@ -37,7 +37,7 @@ public class LeaveTypeController {
 
 	@GetMapping("/leavetype")
 		public ResponseEntity<List<LeaveType>> viewLeaveType() {
-			List<LeaveType> leavetype = leaveTypeService.getLeaveType();
+			List<LeaveType> leavetype = leaveTypeService.getAllLeaveTypes();
 			ResponseEntity<List<LeaveType>> response = new ResponseEntity<>(leavetype, HttpStatus.OK);
 			return response;
 	}

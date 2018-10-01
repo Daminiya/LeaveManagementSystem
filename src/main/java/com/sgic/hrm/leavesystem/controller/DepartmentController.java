@@ -28,7 +28,6 @@ public class DepartmentController {
 		boolean test = departmentService.addDepartment(department);
 		if (test) {
 			return HttpStatus.CREATED;
-
 		}
 
 		return HttpStatus.BAD_REQUEST;
@@ -36,7 +35,7 @@ public class DepartmentController {
 
 	@GetMapping("/department")
 	public ResponseEntity<List<Department>> getDepartment() {
-		List<Department> departments = departmentService.getAllDepartment();
+		List<Department> departments = departmentService.getAllDepartments();
 		ResponseEntity<List<Department>> response = new ResponseEntity<>(departments, HttpStatus.OK);
 		return response;
 	}
