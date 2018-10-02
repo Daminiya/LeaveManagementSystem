@@ -35,4 +35,17 @@ public class LoginServiceImpl implements LoginService {
 
 		return false;
 	}
+
+	@Override
+	public String getLogedUserRoleByUserName(String userName) {
+		if(userName != null) {
+			Login login = loginRepository.findByUserName(userName);
+			String role = login.getRoleId().getRoleName();
+			
+			return role;
+			
+		}
+		
+		return null;
+	}
 }

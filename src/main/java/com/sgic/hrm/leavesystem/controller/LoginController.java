@@ -30,13 +30,17 @@ public class LoginController {
 	@PostMapping("/login")
 	public ResponseEntity<String> getLoginCredentials(HttpSession session, @RequestBody LoginModel loginModel) {
 
-		if (loginService.getLoginVerification(loginModel.getUserName(), loginModel.getPassword())) {
-			session.setAttribute("userName", loginModel.getUserName());
-			return new ResponseEntity<>("Successfully loged in", HttpStatus.OK);
+		String loginUserName = loginModel.getUserName();
+		String loginPassword = loginModel.getPassword();
+		if (loginService.getLoginVerification(loginUserName, loginPassword)) {
+			session.setAttribute("userName", loginUserName);
+			
+			return new ResponseEntity<>("Successfully loged "+loginUserName+" - "+
+			loginService.getLogedUserRoleByUserName(loginUserName), HttpStatus.OK);
 
 		}
 
-		return new ResponseEntity<>("User not exists !", HttpStatus.BAD_REQUEST);
+		return new ResponseEntity<>("Error password or username !", HttpStatus.BAD_REQUEST);
 
 	}
 

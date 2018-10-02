@@ -11,4 +11,6 @@ public interface LoginService {
 	List<Login> getAllLoginCredentials();
 
 	boolean getLoginVerification(String userName, String password);
+	
+	String getLogedUserRoleByUserName(String userName);
 }
