@@ -7,4 +7,7 @@ import com.sgic.hrm.leavesystem.entity.LeaveType;
 public interface LeaveTypeService {
 	
 	List<LeaveType> getLeaveType();
+	boolean editLeaveType(LeaveType leaveType, Integer id);
+	boolean deleteLeaveType(Integer id);
+	boolean addLeaveType(LeaveType leavetype);
 }
