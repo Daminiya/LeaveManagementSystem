@@ -40,7 +40,7 @@ public class CarryForwardRequestController {
 	}
 	
 	@PutMapping("/carryforwardrequest/{id}")
-	public HttpStatus modifyCarryForwardRequest(@RequestBody CarryForwardRequest carryForwardRequest, @PathVariable Integer id) {
+	public HttpStatus changeCarryForwardRequest(@RequestBody CarryForwardRequest carryForwardRequest, @PathVariable Integer id) {
 		boolean result = carryForwardRequestService.editCarryForwardRequest(carryForwardRequest,id);
 		if(result) {
 			return HttpStatus.ACCEPTED;
@@ -56,5 +56,7 @@ public class CarryForwardRequestController {
 		}
 		return HttpStatus.BAD_REQUEST;
 	}
+	
+
 	
 }
