@@ -50,5 +50,4 @@ public class LeaveServiceImpl  implements LeaveService{
 		return LeaveRepository.getOne(id);
 	}
 
-
 }

@@ -9,7 +9,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -22,11 +22,12 @@ public class CarryForwardRejectReason implements Serializable{
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer id;
-	@Id
+	
 	private Integer carryForwardRequestId;
-	@OneToOne(cascade = { CascadeType.PERSIST })
+	@ManyToOne(cascade = { CascadeType.PERSIST })
 	@JoinColumn(name = "rejected_by")
 	private User rejectedBy;
+	private String rejectReason;
 	
 	private ZonedDateTime createdAt;
 
@@ -60,6 +61,14 @@ public class CarryForwardRejectReason implements Serializable{
 
 	public void setCreatedAt(ZonedDateTime createdAt) {
 		this.createdAt = createdAt;
+	}
+	
+	public String getRejectReason() {
+		return rejectReason;
+	}
+
+	public void setRejectReason(String rejectReason) {
+		this.rejectReason = rejectReason;
 	}
 
 }

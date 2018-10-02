@@ -8,7 +8,7 @@ import com.sgic.hrm.leavesystem.entity.Leave;
 
 public interface LeaveRepository extends JpaRepository<Leave, Integer>{
 	
-	@Query("SELECT leave FROM Leave AS leave WHERE leave.user.id=?1")
-	List<Leave> findLeaveByUserId(Integer id);
+//	@Query("SELECT leave FROM Leave AS leave WHERE leave.user.id=?1")
+//	List<Leave> findLeaveByUserId(Integer id);
 
 }
