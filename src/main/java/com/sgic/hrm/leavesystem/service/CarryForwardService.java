@@ -7,4 +7,5 @@ import com.sgic.hrm.leavesystem.entity.CarryForward;
 public interface CarryForwardService {
 boolean AddCarryForward(CarryForward carryForward);
 List<CarryForward> ViewCarryForward();
+Integer getCarryForwardDaysByUserId(Integer id);
 }
