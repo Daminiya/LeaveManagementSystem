@@ -13,6 +13,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+
 @Entity
 @Table(schema = "leave_system", name = "leave_request")
 public class LeaveRequest implements Serializable {

@@ -17,17 +17,7 @@ public class RejectLeaveRequestController {
 	@Autowired
 	private RejectLeaveRequestService rejectLeaveRequestService;
 	
-	List<RejectLeaveRequest> rejectLeave=new ArrayList<>();
-	
-//	@PostMapping("/rejectleave")
-//	public HttpStatus createRejectLeave(@RequestBody RejectLeaveRequest rejectLeaveRequest) {
-//		boolean res=rejectLeaveRequestService.addRejectLeaveRequest(rejectLeave);
-//		if(res) {
-//			return HttpStatus.CREATED;
-//		}
-//		return HttpStatus.BAD_REQUEST;
-//	}
-	
+	List<RejectLeaveRequest> rejectLeave=new ArrayList<>();	
 	@PostMapping("/rejectleave")
 	public boolean addRejectLeave(@RequestBody RejectLeaveRequest rejectLeaveRequest) {
 		

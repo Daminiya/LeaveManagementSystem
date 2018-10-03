@@ -8,6 +8,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.format.annotation.DateTimeFormat.ISO;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -17,10 +18,13 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import com.sgic.hrm.leavesystem.entity.LeaveRequest;
 import com.sgic.hrm.leavesystem.entity.RejectLeaveRequest;
+import com.sgic.hrm.leavesystem.entity.User;
 import com.sgic.hrm.leavesystem.service.LeaveRequestService;
 import com.sgic.hrm.leavesystem.service.LeaveService;
 import com.sgic.hrm.leavesystem.service.RejectLeaveRequestService;
+import com.sgic.hrm.leavesystem.service.UserServices;
 
+@CrossOrigin(origins = "http://localhost:4200", maxAge = 3600)
 @RestController
 public class LeaveRequestController {
 	@Autowired
@@ -29,18 +33,22 @@ public class LeaveRequestController {
 	LeaveService leaveService;
 	@Autowired
 	RejectLeaveRequestService rejectLeaveRequestService;
+	@Autowired
+	UserServices userServices;
 
 	// Done by kowsikan
-	@PostMapping("/leaverequest/addRequest")
-	public String addLeaveRequest(@RequestBody LeaveRequest leaveRequestObj) {
+	@PostMapping("/leaverequest")
+	public boolean addLeaveRequest(@RequestBody LeaveRequest leaveRequestObj) {
 		// save record in leave request table
 		if (leaveRequestService.addLeaveRequest(leaveRequestObj)) {
 			leaveService.decreaseRemaingLeaveDays(leaveRequestObj.getLeaveDays(), leaveRequestObj.getUserId().getId(),
 					leaveRequestObj.getLeaveTypeId().getId());
 		}
-
 		// leaveService.decreaseRemaingLeaveDays(leaveRequestObj.getLeaveDays(), 1, 1);
-		return leaveRequestObj.getUserId().getId() + " " + leaveRequestObj.getLeaveTypeId().getId();
+		// return leaveRequestObj.getUserId().getId() + " " +
+		// leaveRequestObj.getLeaveTypeId().getId();
+		// System.out.println(leaveRequestObj.getLeaveDays());
+		return true;
 	}
 
 	@GetMapping("/leaverequest")
@@ -95,42 +103,19 @@ public class LeaveRequestController {
 		return true;
 	}
 
-///////<<<<<<< HEAD
 	// get details of leave request by user id
-	@GetMapping("/leaverequest/{userId}")
-	public ResponseEntity<Iterable<LeaveRequest>> LeaveRequestFindByUserId(@PathVariable("userId") int userId) {
-		Iterable<LeaveRequest> leaveRequsetDetails = leaveRequestService.findByUserId(userId);
-
+	@GetMapping("/leaverequest/user/{userId}")
+	public ResponseEntity<Iterable<LeaveRequest>> LeaveRequestFindByUserId(@PathVariable("userId") int id) {
+		User userObj = userServices.findUserById(id);
+		Iterable<LeaveRequest> leaveRequsetDetails = leaveRequestService.findByUserId(userObj);
 		return new ResponseEntity<>(leaveRequsetDetails, HttpStatus.OK);
 	}
-	//just testing 
-	@GetMapping("/leaverequest1")
-	public List<LeaveRequest> getLeaverequest() {
-		return leaveRequestService.getLeaverequest();
-	}
-		
-///////
+
 	// leave request details find by date
 	@GetMapping("/leaverequest/{date}")
 	public List<LeaveRequest> getDates(@PathVariable("date") @DateTimeFormat(iso = ISO.DATE_TIME) ZonedDateTime abc) {
 
 		return leaveRequestService.findByDate(abc);
 	}
-///////
-	// Test methods goes here
-//	@GetMapping("/leaverequest/testreq1")
-//	public float test1() {
-//		return leaveService.increaseRemaingLeaveDays(5, 1, 1);
-//	}
-//
-//	@GetMapping("/leaverequest/testreq2")
-//	public float test2() {
-//		return leaveService.decreaseRemaingLeaveDays(8, 1, 1);
-//	}
-//
-//	@GetMapping("/leaverequest/testleave")
-//	public Leave test3() {
-//		return leaveRepo.findRemaingDaysByUserIdAndLeaveTypeId(1, 1);
-//	}
 
 }

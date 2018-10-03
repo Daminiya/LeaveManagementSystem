@@ -4,6 +4,7 @@ import java.time.ZonedDateTime;
 import java.util.List;
 
 import com.sgic.hrm.leavesystem.entity.LeaveRequest;
+import com.sgic.hrm.leavesystem.entity.User;
 
 public interface LeaveRequestService {
 
@@ -22,12 +23,11 @@ public interface LeaveRequestService {
 	// edit leave request thiru
 	boolean editLeaveRequestStatus(int id, int statusId);
 
-	//edit leave request Approved 
+	// edit leave request Approved
 	boolean editLeaveRequestApproval(int id, int userId);
-	 //LeaveRequest findByUserId(int id);
-	 public Iterable<LeaveRequest>findByUserId(int id);
-	 //testing only 
-	 List<LeaveRequest>getLeaverequest();
+
+	// LeaveRequest findByUserId(int id);
+	public Iterable<LeaveRequest> findByUserId(User id);
 
 	// date wise pick the leave request records done by fasla
 	public List<LeaveRequest> findByDate(ZonedDateTime abc);

@@ -21,7 +21,7 @@ public class CarryForwardServiceImpl implements CarryForwardService {
 
 	@Override
 	public List<CarryForward> ViewCarryForward() {
-		
+
 		return carryForwardRepository.findAll();
 	}
 

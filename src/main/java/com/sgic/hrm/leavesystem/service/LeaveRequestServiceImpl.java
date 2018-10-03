@@ -17,7 +17,6 @@ import com.sgic.hrm.leavesystem.repository.UserRepository;
 public class LeaveRequestServiceImpl implements LeaveRequestService {
 	@Autowired
 	LeaveRequestReposity leaveRequestRepo;
-
 	@Autowired
 	StatusRepository statusRepo;
 	@Autowired
@@ -31,7 +30,6 @@ public class LeaveRequestServiceImpl implements LeaveRequestService {
 
 	@Override
 	public boolean deleteLeaveRequest(int id) {
-		// TODO Auto-generated method stub
 		leaveRequestRepo.deleteById(id);
 		return false;
 	}
@@ -43,7 +41,6 @@ public class LeaveRequestServiceImpl implements LeaveRequestService {
 
 	@Override
 	public LeaveRequest findLeaveRequestById(int id) {
-		// TODO Auto-generated method stub
 		return leaveRequestRepo.findById(id);
 	}
 
@@ -56,28 +53,20 @@ public class LeaveRequestServiceImpl implements LeaveRequestService {
 		return true;
 	}
 
+//who change the status and change status reflected in leave request table 
 	@Override
 	public boolean editLeaveRequestApproval(int id, int userId) {
-		// TODO Auto-generated method stub
 		LeaveRequest lrObj = leaveRequestRepo.findById(id);
 		User userObj = userRepo.findById(userId);
 		lrObj.setUserId(userObj);
 		leaveRequestRepo.save(lrObj);
 		return true;
 	}
+
 	// get details of leave request by user id
-
-
 	@Override
-	public Iterable<LeaveRequest>findByUserId(int id) {
-		// TODO Auto-generated method stub
-		return leaveRequestRepo.findByUserId(userRepo.findById(id));
-	}
-//just testing only no need functionality 
-	@Override
-	public List<LeaveRequest> getLeaverequest() {
-		// TODO Auto-generated method stub
-		return leaveRequestRepo.findAll();
+	public Iterable<LeaveRequest> findByUserId(User id) {
+		return leaveRequestRepo.findByUserId(id);
 	}
 
 	// date wise pick the leave request records

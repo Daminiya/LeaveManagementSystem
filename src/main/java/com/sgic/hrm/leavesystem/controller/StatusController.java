@@ -9,12 +9,12 @@ import com.sgic.hrm.leavesystem.service.StatusService;
 
 @RestController
 public class StatusController {
-	
+
 	@Autowired
 	private StatusService statusService;
-	
+
 	@GetMapping("/status")
-	public Iterable<Status> getAllStatus(){
+	public Iterable<Status> getAllStatus() {
 		return statusService.getAllStatus();
 	}
 

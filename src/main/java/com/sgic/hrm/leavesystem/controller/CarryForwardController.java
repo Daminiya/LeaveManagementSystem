@@ -15,20 +15,21 @@ import com.sgic.hrm.leavesystem.service.CarryForwardService;
 public class CarryForwardController {
 	@Autowired
 	CarryForwardService carryForwardService;
+
 	@GetMapping("carryforward")
 	public List<CarryForward> ViewCarryForward() {
 		return carryForwardService.ViewCarryForward();
-		
+
 	}
+
 	@PostMapping("carryforward")
-	public boolean AddCarryForward(@RequestBody CarryForward carryForward ) {
-		if(carryForward.getUserId() != null) {
+	public boolean AddCarryForward(@RequestBody CarryForward carryForward) {
+		if (carryForward.getUserId() != null) {
 			carryForwardService.AddCarryForward(carryForward);
 			return true;
 		}
 		return false;
-		
+
 	}
 
-	
 }
