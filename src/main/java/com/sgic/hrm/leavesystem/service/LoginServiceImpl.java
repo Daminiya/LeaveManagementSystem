@@ -38,14 +38,27 @@ public class LoginServiceImpl implements LoginService {
 
 	@Override
 	public String getLogedUserRoleByUserName(String userName) {
-		if(userName != null) {
+		if (userName != null) {
 			Login login = loginRepository.findByUserName(userName);
 			String role = login.getRoleId().getRoleName();
-			
+
 			return role;
-			
+
 		}
-		
+
+		return null;
+	}
+
+	@Override
+	public String getUserDepartmentByUserName(String userName) {
+		if (userName != null) {
+			Login login = loginRepository.findByUserName(userName);
+			String department = login.getDepartmentId().getDepartmentName();
+
+			return department;
+
+		}
+
 		return null;
 	}
 }

@@ -13,4 +13,6 @@ public interface LoginService {
 	boolean getLoginVerification(String userName, String password);
 	
 	String getLogedUserRoleByUserName(String userName);
+	
+	String getUserDepartmentByUserName(String userName);
 }

@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.sgic.hrm.leavesystem.entity.Login;
+import com.sgic.hrm.leavesystem.model.LoggedUserModel;
 import com.sgic.hrm.leavesystem.model.LoginModel;
 import com.sgic.hrm.leavesystem.service.LoginService;
 
@@ -28,19 +29,26 @@ public class LoginController {
 	}
 
 	@PostMapping("/login")
-	public ResponseEntity<String> getLoginCredentials(HttpSession session, @RequestBody LoginModel loginModel) {
+	public ResponseEntity<LoggedUserModel> getLoginCredentials(HttpSession session, @RequestBody LoginModel loginModel) {
 
 		String loginUserName = loginModel.getUserName();
 		String loginPassword = loginModel.getPassword();
 		if (loginService.getLoginVerification(loginUserName, loginPassword)) {
 			session.setAttribute("userName", loginUserName);
+			String department = loginService.getUserDepartmentByUserName(loginUserName);
+			String role = loginService.getLogedUserRoleByUserName(loginUserName);
 			
-			return new ResponseEntity<>("Successfully loged "+loginUserName+" - "+
-			loginService.getLogedUserRoleByUserName(loginUserName), HttpStatus.OK);
+			LoggedUserModel loggedUserModel = new LoggedUserModel();
+			loggedUserModel.setUserName(loginUserName);
+			loggedUserModel.setUserRole(role);
+			loggedUserModel.setUserDepartment(department);
+			
+			//return new ResponseEntity<>("Successfully loged "+loginUserName+" - "+role+" - "+department, HttpStatus.OK);
+			return new ResponseEntity<>(loggedUserModel, HttpStatus.OK);
 
 		}
 
-		return new ResponseEntity<>("Error password or username !", HttpStatus.BAD_REQUEST);
+		return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 
 	}
 
