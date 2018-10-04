@@ -1,52 +1,22 @@
-package com.sgic.hrm.leavesystem.entity;
+package com.sgic.hrm.leavesystem.model;
 
-import java.io.Serializable;
 import java.time.ZonedDateTime;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import com.sgic.hrm.leavesystem.entity.Department;
+import com.sgic.hrm.leavesystem.entity.Role;
 
-import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.NaturalId;
-import org.hibernate.annotations.UpdateTimestamp;
+public class UserModel {
 
-@Entity
-@Table(schema = "leave_system", name = "user")
-public class User implements Serializable {
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = -346839090403770783L;
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
-	@NaturalId
 	private String userName;
 	private String email;
 	private String firstName;
 	private String lastName;
 	private ZonedDateTime joinDate;
-
-	@ManyToOne
-	@JoinColumn(name = "role_id")
 	private Role roleId;
-
-	@ManyToOne
-	@JoinColumn(name = "department_id")
 	private Department departmentId;
-
 	private Integer servicePeriod;
-
-	@CreationTimestamp
-	private ZonedDateTime createdAt;
-
-	@UpdateTimestamp
-	private ZonedDateTime updatedAt;
+	private String password;
 
 	public Integer getId() {
 		return id;
@@ -120,20 +90,12 @@ public class User implements Serializable {
 		this.servicePeriod = servicePeriod;
 	}
 
-	public ZonedDateTime getCreatedAt() {
-		return createdAt;
+	public String getPassword() {
+		return password;
 	}
 
-	public void setCreatedAt(ZonedDateTime createdAt) {
-		this.createdAt = createdAt;
-	}
-
-	public ZonedDateTime getUpdatedAt() {
-		return updatedAt;
-	}
-
-	public void setUpdatedAt(ZonedDateTime updatedAt) {
-		this.updatedAt = updatedAt;
+	public void setPassword(String password) {
+		this.password = password;
 	}
 
 }

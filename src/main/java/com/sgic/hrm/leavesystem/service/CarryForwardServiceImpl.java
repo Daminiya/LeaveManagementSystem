@@ -24,11 +24,10 @@ public class CarryForwardServiceImpl implements CarryForwardService {
 
 		return carryForwardRepository.findAll();
 	}
-	
+
 	@Override
 	public Integer getCarryForwardDaysByUserId(Integer id) {
 		return carryForwardRepository.getOne(id).getCarryForwardDays();
 	}
-
 
 }

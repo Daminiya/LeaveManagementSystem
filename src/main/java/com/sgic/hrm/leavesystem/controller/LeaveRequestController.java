@@ -16,17 +16,19 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+
 import com.sgic.hrm.leavesystem.entity.LeaveRequest;
 import com.sgic.hrm.leavesystem.entity.RejectLeaveRequest;
 import com.sgic.hrm.leavesystem.entity.User;
 import com.sgic.hrm.leavesystem.service.LeaveRequestService;
 import com.sgic.hrm.leavesystem.service.LeaveService;
 import com.sgic.hrm.leavesystem.service.RejectLeaveRequestService;
-import com.sgic.hrm.leavesystem.service.UserServices;
+import com.sgic.hrm.leavesystem.service.UserService;
 
 @CrossOrigin(origins = "http://localhost:4200", maxAge = 3600)
 @RestController
 public class LeaveRequestController {
+	
 	@Autowired
 	LeaveRequestService leaveRequestService;
 	@Autowired
@@ -34,7 +36,7 @@ public class LeaveRequestController {
 	@Autowired
 	RejectLeaveRequestService rejectLeaveRequestService;
 	@Autowired
-	UserServices userServices;
+	UserService userService;
 
 	// Done by kowsikan
 	@PostMapping("/leaverequest")
@@ -101,8 +103,8 @@ public class LeaveRequestController {
 	// get details of leave request by user id
 	@GetMapping("/leaverequest/user/{userId}")
 	public ResponseEntity<Iterable<LeaveRequest>> findLeaveRequestByUserId(@PathVariable("userId") int id) {
-		User userObj = userServices.findUserById(id);
-		Iterable<LeaveRequest> leaveRequsetDetails = leaveRequestService.findByUserId(userObj);
+		User user = userService.getUserById(id);
+		Iterable<LeaveRequest> leaveRequsetDetails = leaveRequestService.findByUserId(user);
 		return new ResponseEntity<>(leaveRequsetDetails, HttpStatus.OK);
 	}
 
