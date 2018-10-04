@@ -9,7 +9,7 @@ import com.sgic.hrm.leavesystem.entity.User;
 public interface LeaveRequestService {
 
 	// code done by kowsikan
-	boolean addLeaveRequest(LeaveRequest obj);
+	boolean addLeaveRequest(LeaveRequest leaveRequest);
 
 	// code done by pakikaran
 	boolean deleteLeaveRequest(int id);
@@ -26,9 +26,8 @@ public interface LeaveRequestService {
 	// edit leave request Approved
 	boolean editLeaveRequestApproval(int id, int userId);
 
-	// LeaveRequest findByUserId(int id);
 	public Iterable<LeaveRequest> findByUserId(User id);
 
 	// date wise pick the leave request records done by fasla
-	public List<LeaveRequest> findByDate(ZonedDateTime abc);
+	public List<LeaveRequest> findByDate(ZonedDateTime date);
 }

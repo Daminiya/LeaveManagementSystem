@@ -4,5 +4,4 @@ import com.sgic.hrm.leavesystem.entity.User;
 
 public interface UserServices {
 	User findUserById(int id);
-
 }

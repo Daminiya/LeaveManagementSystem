@@ -38,16 +38,12 @@ public class LeaveRequestController {
 
 	// Done by kowsikan
 	@PostMapping("/leaverequest")
-	public boolean addLeaveRequest(@RequestBody LeaveRequest leaveRequestObj) {
+	public boolean addLeaveRequest(@RequestBody LeaveRequest leaveRequest) {
 		// save record in leave request table
-		if (leaveRequestService.addLeaveRequest(leaveRequestObj)) {
-			leaveService.decreaseRemaingLeaveDays(leaveRequestObj.getLeaveDays(), leaveRequestObj.getUserId().getId(),
-					leaveRequestObj.getLeaveTypeId().getId());
+		if (leaveRequestService.addLeaveRequest(leaveRequest)) {
+			leaveService.decreaseRemaingLeaveDays(leaveRequest.getLeaveDays(), leaveRequest.getUserId().getId(),
+					leaveRequest.getLeaveTypeId().getId());
 		}
-		// leaveService.decreaseRemaingLeaveDays(leaveRequestObj.getLeaveDays(), 1, 1);
-		// return leaveRequestObj.getUserId().getId() + " " +
-		// leaveRequestObj.getLeaveTypeId().getId();
-		// System.out.println(leaveRequestObj.getLeaveDays());
 		return true;
 	}
 
@@ -59,9 +55,9 @@ public class LeaveRequestController {
 	// Bone by Pakikaran
 	@DeleteMapping("/leaverequest/deleteRequest/{id}")
 	public boolean deleteLeaveRequest(@PathVariable("id") int id) {
-		LeaveRequest leaveRequestObj = leaveRequestService.findLeaveRequestById(id);
-		leaveService.increaseRemaingLeaveDays(leaveRequestObj.getLeaveDays(), leaveRequestObj.getUserId().getId(),
-				leaveRequestObj.getLeaveTypeId().getId());
+		LeaveRequest leaveRequest = leaveRequestService.findLeaveRequestById(id);
+		leaveService.increaseRemaingLeaveDays(leaveRequest.getLeaveDays(), leaveRequest.getUserId().getId(),
+				leaveRequest.getLeaveTypeId().getId());
 		leaveRequestService.deleteLeaveRequest(id);
 
 		return true;
@@ -74,12 +70,12 @@ public class LeaveRequestController {
 	@PutMapping("/leaverequest/{id}/{status}/{userId}")
 	public ResponseEntity<String> approveLeaveRequest(@PathVariable("id") int id, @PathVariable("status") int statusId,
 			@PathVariable("userId") int userId) {
-		boolean sucessStatus = leaveRequestService.editLeaveRequestStatus(id, statusId);// can be hard coded
+		boolean sucessStatus = leaveRequestService.editLeaveRequestStatus(id, statusId);
 		boolean successApproval = leaveRequestService.editLeaveRequestApproval(id, userId);
-		String result = "Status not show";
+		String result = "Status not changed";
 		ResponseEntity<String> status = new ResponseEntity<>(result, HttpStatus.FORBIDDEN);
 		if (sucessStatus && successApproval) {
-			result = "Status sucessfully";
+			result = "Status changed sucessfully";
 			status = new ResponseEntity<>(result, HttpStatus.OK);
 		}
 		return status;
@@ -93,19 +89,18 @@ public class LeaveRequestController {
 	@PutMapping("/leaverequest/rejectleave/{statusid}")
 	public boolean addRejectLeave(@RequestBody RejectLeaveRequest rejectLeaveRequest,
 			@PathVariable("id") int statusId) {
-		// status id can be hard coded//
 		leaveRequestService.editLeaveRequestStatus(rejectLeaveRequest.getLeaveRequestId().getId(), statusId);
-		LeaveRequest leaveRequestObj = leaveRequestService
+		LeaveRequest leaveRequest = leaveRequestService
 				.findLeaveRequestById(rejectLeaveRequest.getLeaveRequestId().getId());
-		leaveService.increaseRemaingLeaveDays(leaveRequestObj.getLeaveDays(), leaveRequestObj.getUserId().getId(),
-				leaveRequestObj.getLeaveTypeId().getId());
+		leaveService.increaseRemaingLeaveDays(leaveRequest.getLeaveDays(), leaveRequest.getUserId().getId(),
+				leaveRequest.getLeaveTypeId().getId());
 		rejectLeaveRequestService.addRejectLeaveRequest(rejectLeaveRequest);
 		return true;
 	}
 
 	// get details of leave request by user id
 	@GetMapping("/leaverequest/user/{userId}")
-	public ResponseEntity<Iterable<LeaveRequest>> LeaveRequestFindByUserId(@PathVariable("userId") int id) {
+	public ResponseEntity<Iterable<LeaveRequest>> findLeaveRequestByUserId(@PathVariable("userId") int id) {
 		User userObj = userServices.findUserById(id);
 		Iterable<LeaveRequest> leaveRequsetDetails = leaveRequestService.findByUserId(userObj);
 		return new ResponseEntity<>(leaveRequsetDetails, HttpStatus.OK);
@@ -113,9 +108,8 @@ public class LeaveRequestController {
 
 	// leave request details find by date
 	@GetMapping("/leaverequest/{date}")
-	public List<LeaveRequest> getDates(@PathVariable("date") @DateTimeFormat(iso = ISO.DATE_TIME) ZonedDateTime abc) {
-
-		return leaveRequestService.findByDate(abc);
+	public List<LeaveRequest> getDates(@PathVariable("date") @DateTimeFormat(iso = ISO.DATE_TIME) ZonedDateTime date) {
+		return leaveRequestService.findByDate(date);
 	}
 
 }

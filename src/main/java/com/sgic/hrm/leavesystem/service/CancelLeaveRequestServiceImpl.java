@@ -13,32 +13,32 @@ import com.sgic.hrm.leavesystem.repository.UserRepository;
 
 @Service
 public class CancelLeaveRequestServiceImpl implements CancelLeaveRequestService {
+	
 	@Autowired
-	CancelLeaveRequestRepository cancelLeaveRequestRepo;
+	CancelLeaveRequestRepository cancelLeaveRequestRepository;
 	@Autowired
-	UserRepository userRepo;
+	UserRepository userRepository;
 	@Autowired
-	LeaveRequestReposity leaveReqRepo;
+	LeaveRequestReposity leaveReqRepository;
 
 	@Override
 	public boolean addCancelLeaveRequest(CancelLeaveRequest cancelLeaveRequest) {
-		cancelLeaveRequestRepo.save(cancelLeaveRequest);
+		cancelLeaveRequestRepository.save(cancelLeaveRequest);
 		return true;
 	}
 
 	@Override
 	public List<CancelLeaveRequest> getLeaveRequest() {
-		// TODO Auto-generated method stub
-		return cancelLeaveRequestRepo.findAll();
+		return cancelLeaveRequestRepository.findAll();
 	}
 
 	@Override
 	public boolean editCancelRequestApproval(int leaveRequsetId, int userId) {
-		CancelLeaveRequest cancelLeaveRequestObj = cancelLeaveRequestRepo
-				.findByLeaveRequestId(leaveReqRepo.findById(leaveRequsetId));
-		User userObj = userRepo.findById(userId);
+		CancelLeaveRequest cancelLeaveRequestObj = cancelLeaveRequestRepository
+				.findByLeaveRequestId(leaveReqRepository.findById(leaveRequsetId).orElse(null));
+		User userObj = userRepository.findById(userId).orElse(null);
 		cancelLeaveRequestObj.setCancelledBy(userObj);
-		cancelLeaveRequestRepo.save(cancelLeaveRequestObj);
+		cancelLeaveRequestRepository.save(cancelLeaveRequestObj);
 		return true;
 	}
 

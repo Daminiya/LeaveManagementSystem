@@ -32,7 +32,6 @@ public class CancelLeaveRequestController {
 	@GetMapping("/cancelLeaveRequest")
 	public List<CancelLeaveRequest> getLeaveRequest() {
 		return cancelLeaveRequestService.getLeaveRequest();
-
 	}
 
 //Cancel leave Request add function
@@ -52,20 +51,17 @@ public class CancelLeaveRequestController {
 	@PutMapping("/cancelLeaveRequest/{leaveRequestId}/{userId}/{statusId}")
 	public ResponseEntity<String> editCancelRequestApproval(@PathVariable("leaveRequestId") int id,
 			@PathVariable("userId") int userId, @PathVariable("statusId") int statusId) {
-		boolean sucessStatus = leaveRequestService.editLeaveRequestStatus(id, statusId);// can be hard coded
+		boolean sucessStatus = leaveRequestService.editLeaveRequestStatus(id, statusId);
 		boolean sucessCancelRequsetApproval = cancelLeaveRequestService.editCancelRequestApproval(id, userId);
-		LeaveRequest leaveRequestObj = leaveRequestService.findLeaveRequestById(id);
-		float sucessCancelRequestRemaindays = leaveService.increaseRemaingLeaveDays(leaveRequestObj.getLeaveDays(),
-				leaveRequestObj.getUserId().getId(), leaveRequestObj.getLeaveTypeId().getId());
+		LeaveRequest leaveRequest = leaveRequestService.findLeaveRequestById(id);
+		float sucessCancelRequestRemaindays = leaveService.increaseRemaingLeaveDays(leaveRequest.getLeaveDays(),
+				leaveRequest.getUserId().getId(), leaveRequest.getLeaveTypeId().getId());
 		String result = "Cancel requset approvel faild";
 		ResponseEntity<String> status = new ResponseEntity<>(result, HttpStatus.FORBIDDEN);
 		if (sucessCancelRequsetApproval && sucessCancelRequestRemaindays >= 0 && sucessStatus) {
 			result = "Cancel request approvel sucessfully";
 			status = new ResponseEntity<>(result, HttpStatus.OK);
-
 		}
 		return status;
-
 	}
-
 }

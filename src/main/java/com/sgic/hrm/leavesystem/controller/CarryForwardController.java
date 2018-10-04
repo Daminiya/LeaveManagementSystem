@@ -14,21 +14,27 @@ import com.sgic.hrm.leavesystem.service.CarryForwardService;
 
 @RestController
 public class CarryForwardController {
+	
 	@Autowired
 	CarryForwardService carryForwardService;
 
 	@GetMapping("carryforward")
-	public List<CarryForward> ViewCarryForward() {
-		return carryForwardService.ViewCarryForward();
+	public List<CarryForward> viewCarryForward() {
+		return carryForwardService.viewCarryForward();
 
 	}
 
 	@PostMapping("carryforward")
-	public boolean AddCarryForward(@RequestBody CarryForward carryForward) {
+	public boolean addCarryForward(@RequestBody CarryForward carryForward) {
 		if (carryForward.getUserId() != null) {
-			carryForwardService.AddCarryForward(carryForward);
+			carryForwardService.addCarryForward(carryForward);
 			return true;
 		}
 		return false;
+	}
+	
+	@GetMapping("carryforwarddays/{id}")
+	public Integer getCarryForwardDaysByUserId(@PathVariable Integer id) {
+ 		return carryForwardService.getCarryForwardDaysByUserId(id);
 	}
 }

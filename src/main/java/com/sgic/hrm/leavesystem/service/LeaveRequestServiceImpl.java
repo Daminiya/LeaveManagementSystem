@@ -15,65 +15,71 @@ import com.sgic.hrm.leavesystem.repository.UserRepository;
 
 @Service
 public class LeaveRequestServiceImpl implements LeaveRequestService {
+	
 	@Autowired
-	LeaveRequestReposity leaveRequestRepo;
+	LeaveRequestReposity leaveRequestRepository;
 	@Autowired
-	StatusRepository statusRepo;
+	StatusRepository statusRepository;
 	@Autowired
-	UserRepository userRepo;
+	UserRepository userRepository;
 
 	@Override
-	public boolean addLeaveRequest(LeaveRequest obj) {
-		leaveRequestRepo.save(obj);
+	public boolean addLeaveRequest(LeaveRequest leaveRequest) {
+		leaveRequestRepository.save(leaveRequest);
 		return true;
 	}
 
 	@Override
 	public boolean deleteLeaveRequest(int id) {
-		leaveRequestRepo.deleteById(id);
+		leaveRequestRepository.deleteById(id);
 		return false;
 	}
 
 	@Override
 	public List<LeaveRequest> getData() {
-		return leaveRequestRepo.findAll();
+		return leaveRequestRepository.findAll();
 	}
 
 	@Override
 	public LeaveRequest findLeaveRequestById(int id) {
-		return leaveRequestRepo.findById(id);
+		return leaveRequestRepository.findById(id).orElse(null);
 	}
 
 	@Override
 	public boolean editLeaveRequestStatus(int id, int statusId) {
-		LeaveRequest lrObj = leaveRequestRepo.findById(id);
-		Status statusObj = statusRepo.findById(statusId);
-		lrObj.setStatusId(statusObj);
-		leaveRequestRepo.save(lrObj);
-		return true;
+		LeaveRequest leaveRequest = leaveRequestRepository.findById(id).orElse(null);
+		Status status = statusRepository.findById(statusId).orElse(null);
+		if (leaveRequest != null) {
+			leaveRequest.setStatusId(status);
+			leaveRequestRepository.save(leaveRequest);
+			return true;
+		}
+		return false;
 	}
 
 //who change the status and change status reflected in leave request table 
 	@Override
 	public boolean editLeaveRequestApproval(int id, int userId) {
-		LeaveRequest lrObj = leaveRequestRepo.findById(id);
-		User userObj = userRepo.findById(userId);
-		lrObj.setUserId(userObj);
-		leaveRequestRepo.save(lrObj);
-		return true;
+		LeaveRequest leaveRequest = leaveRequestRepository.findById(id).orElse(null);
+		User user = userRepository.findById(userId).orElse(null);
+		if (leaveRequest != null) {
+			leaveRequest.setUserId(user);
+			leaveRequestRepository.save(leaveRequest);
+			return true;
+		}
+		return false;
 	}
 
 	// get details of leave request by user id
 	@Override
 	public Iterable<LeaveRequest> findByUserId(User id) {
-		return leaveRequestRepo.findByUserId(id);
+		return leaveRequestRepository.findByUserId(id);
 	}
 
 	// date wise pick the leave request records
 	@Override
-	public List<LeaveRequest> findByDate(ZonedDateTime abc) {
-		// TODO Auto-generated method stub
-		return leaveRequestRepo.findByDate(abc);
+	public List<LeaveRequest> findByDate(ZonedDateTime date) {
+		return leaveRequestRepository.findByDate(date);
 	}
 
 }

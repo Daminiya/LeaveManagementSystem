@@ -13,7 +13,7 @@ public class UserServiceImpl implements UserServices {
 
 	@Override
 	public User findUserById(int id) {
-		return userRepo.findById(id);
+		return userRepo.findById(id).orElse(null);
 	}
 
 }
