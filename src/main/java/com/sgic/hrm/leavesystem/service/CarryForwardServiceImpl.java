@@ -21,14 +21,8 @@ public class CarryForwardServiceImpl implements CarryForwardService {
 
 	@Override
 	public List<CarryForward> ViewCarryForward() {
-		
-		return carryForwardRepository.findAll();
-	}
 
-	@Override
-	public Integer getCarryForwardDaysByUserId(Integer id) {
-		// TODO Auto-generated method stub
-		return carryForwardRepository.getOne(id).getCarryForwardDays();
+		return carryForwardRepository.findAll();
 	}
 
 }

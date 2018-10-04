@@ -34,7 +34,8 @@ public class CancelLeaveRequestServiceImpl implements CancelLeaveRequestService 
 
 	@Override
 	public boolean editCancelRequestApproval(int leaveRequsetId, int userId) {
-		CancelLeaveRequest cancelLeaveRequestObj = cancelLeaveRequestRepo.findByLeaveRequestId(leaveReqRepo.findById(leaveRequsetId));
+		CancelLeaveRequest cancelLeaveRequestObj = cancelLeaveRequestRepo
+				.findByLeaveRequestId(leaveReqRepo.findById(leaveRequsetId));
 		User userObj = userRepo.findById(userId);
 		cancelLeaveRequestObj.setCancelledBy(userObj);
 		cancelLeaveRequestRepo.save(cancelLeaveRequestObj);

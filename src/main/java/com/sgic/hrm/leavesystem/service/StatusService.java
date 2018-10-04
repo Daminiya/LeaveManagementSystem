@@ -7,6 +7,5 @@ public interface StatusService {
 	public Iterable<Status> getAllStatus();
 	boolean save(Status status);
 	boolean delete(int id);
-	
-	
 }
+

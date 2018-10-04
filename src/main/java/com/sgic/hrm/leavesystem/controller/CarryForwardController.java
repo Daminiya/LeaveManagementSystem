@@ -30,13 +30,5 @@ public class CarryForwardController {
 			return true;
 		}
 		return false;
-
 	}
-
-	@GetMapping("carryforwarddays/{id}")
-	public Integer getCarryForwardDaysByUserId(@PathVariable Integer id) {
-
-		return carryForwardService.getCarryForwardDaysByUserId(id);
-	}
-
 }

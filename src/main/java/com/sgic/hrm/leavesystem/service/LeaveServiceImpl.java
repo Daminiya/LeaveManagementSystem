@@ -14,19 +14,15 @@ public class LeaveServiceImpl implements LeaveService {
 
 	@Override
 	public float increaseRemaingLeaveDays(float numOfDays, int userId, int leaveTypeId) {
-		// TODO Auto-generated method stub
 		Leave leaveObj = leaveRepo.findRemaingDaysByUserIdAndLeaveTypeId(userId, leaveTypeId);
 		float newRemaingDays = leaveObj.getRemainDays() + numOfDays;
 		leaveObj.setRemainDays(newRemaingDays);
 		leaveRepo.save(leaveObj);
 		return newRemaingDays;
-
-		// return 0;
 	}
 
 	@Override
 	public float decreaseRemaingLeaveDays(float numOfDays, int userId, int leaveTypeId) {
-		// TODO Auto-generated method stub
 		Leave leaveObj = leaveRepo.findRemaingDaysByUserIdAndLeaveTypeId(userId, leaveTypeId);
 		float newRemaingDays = leaveObj.getRemainDays() - numOfDays;
 		leaveObj.setRemainDays(newRemaingDays);
