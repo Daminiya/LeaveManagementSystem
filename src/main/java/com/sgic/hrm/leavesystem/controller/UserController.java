@@ -5,6 +5,7 @@ import java.util.NoSuchElementException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -73,6 +74,18 @@ public class UserController {
 	@GetMapping("/user/{Id}/department")
 	public String getDepartmentByUserId(@PathVariable("Id") Integer id) {
 		return userService.getUserDepartmentByUserId(id);
+	}
+	
+	@Transactional
+	@DeleteMapping("/user/{id}")
+	public boolean deleteUser(@PathVariable("id") Integer userId) {
+		boolean test = false;
+		boolean test1 = leaveService.deleteLeave(userId);	
+		boolean test2 = loginService.deleteLogin(userId);		
+		boolean test3 = userService.deleteUserById(userId);
+		if(test2 && test1 && test3)
+			test = true;
+		return test;
 	}
 }
 

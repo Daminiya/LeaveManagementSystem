@@ -41,4 +41,13 @@ public class LeaveServiceImpl implements LeaveService {
 		}
 		return true;
 	}
+	
+	@Override
+	public boolean deleteLeave(Integer userId) {
+		List<Leave> leave = leaveRepository.getLeaveByUserId(userId);
+		for (Leave l : leave) {
+			leaveRepository.deleteById(l.getId());			
+		}
+		return true;
+	}
 }

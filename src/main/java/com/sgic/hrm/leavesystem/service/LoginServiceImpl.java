@@ -6,12 +6,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.sgic.hrm.leavesystem.entity.Login;
+import com.sgic.hrm.leavesystem.entity.User;
 import com.sgic.hrm.leavesystem.repository.LoginRepository;
+import com.sgic.hrm.leavesystem.repository.UserRepository;
 
 @Service
 public class LoginServiceImpl implements LoginService {
 	@Autowired
 	private LoginRepository loginRepository;
+	
+	@Autowired
+	private UserRepository userRepository;
 
 	@Override
 	public boolean addLoginCredential(Login login) {
@@ -60,5 +65,19 @@ public class LoginServiceImpl implements LoginService {
 		}
 
 		return null;
+	}
+	
+	@Override
+	public  boolean deleteLogin(Integer userId)	{
+		boolean status = false;
+		
+		User user = userRepository.findById(userId).orElse(null);
+		if(user != null) {
+		Login login = loginRepository.findByUserName(user.getUserName());
+		
+			loginRepository.deleteById(login.getId());
+			status = true;
+		}
+		return status;
 	}
 }

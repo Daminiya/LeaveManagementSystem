@@ -41,5 +41,14 @@ public class UserServiceImpl implements UserService {
 		User user = userRepository.findById(id).get();
 		return user;		
 	}
+	
+	public boolean deleteUserById(Integer userId) {
+		boolean success = false;
+		if (userRepository.findById(userId).isPresent()) {
+			userRepository.deleteById(userId);
+			success = true;
+		}
+		return success;
+	}
 
 }
