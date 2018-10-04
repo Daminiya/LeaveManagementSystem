@@ -6,35 +6,40 @@ import java.time.ZonedDateTime;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
-import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.UpdateTimestamp;
 
 @Entity
 @Table(schema = "leave_system", name = "login")
-public class Login extends User implements Serializable {
+public class Login implements Serializable {
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = -7100182369063236716L;
 
-	@OneToOne(fetch = FetchType.EAGER)
-	@PrimaryKeyJoinColumn(name = "id", referencedColumnName = "id")
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	private String password;
-	@ManyToOne(cascade = { CascadeType.PERSIST })
-	@JoinColumn(name = "user_id")
+	@OneToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "user_Name", referencedColumnName = "userName")
 	private User user;
-	@ManyToOne(cascade = { CascadeType.PERSIST })
+	@ManyToOne(cascade = { CascadeType.DETACH })
 	@JoinColumn(name = "role_id")
 	private Role roleId;
 
-	@ManyToOne(cascade = { CascadeType.PERSIST })
+	@ManyToOne(cascade = { CascadeType.DETACH })
 	@JoinColumn(name = "department_id")
 	private Department departmentId;
-
+	
+	@UpdateTimestamp
 	private ZonedDateTime updatedAt;
 
 	public String getPassword() {

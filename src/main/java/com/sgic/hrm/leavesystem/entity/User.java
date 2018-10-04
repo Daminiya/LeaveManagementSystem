@@ -19,7 +19,7 @@ import org.hibernate.annotations.UpdateTimestamp;
 
 @Entity
 @Table(schema = "leave_system", name = "user")
-@SecondaryTable(name="login")
+@SecondaryTable(name = "login")
 public class User implements Serializable {
 	/**
 	 * 
@@ -30,6 +30,7 @@ public class User implements Serializable {
 	@Column
 	private Integer id;
 	@NaturalId
+	@Column(updatable = false, nullable = false)
 	private String userName;
 	private String email;
 	private String firstName;
@@ -46,21 +47,22 @@ public class User implements Serializable {
 
 	private Integer servicePeriod;
 	@CreationTimestamp
+	@Column(updatable = false, nullable = false)
 	private ZonedDateTime createdAt;
 	@UpdateTimestamp
 	private ZonedDateTime updatedAt;
-	
-	@Column(table="login")
+
+	@Column(table = "login")
 	private String password;
-	
+
 	public String getPassword() {
 		return password;
 	}
 
 	public void setPassword(String password) {
 		this.password = password;
-	}	
-	
+	}
+
 	public Integer getId() {
 		return id;
 	}
@@ -108,7 +110,7 @@ public class User implements Serializable {
 	public void setJoinDate(ZonedDateTime joinDate) {
 		this.joinDate = joinDate;
 	}
-	
+
 //	@JsonIgnore
 	public Role getRoleId() {
 		return roleId;
@@ -117,6 +119,7 @@ public class User implements Serializable {
 	public void setRoleId(Role roleId) {
 		this.roleId = roleId;
 	}
+
 //	@JsonIgnore
 	public Department getDepartmentId() {
 		return departmentId;

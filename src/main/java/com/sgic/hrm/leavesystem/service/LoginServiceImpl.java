@@ -4,10 +4,12 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.sgic.hrm.leavesystem.entity.Login;
 import com.sgic.hrm.leavesystem.repository.LoginRepository;
 
+@Transactional
 @Service
 public class LoginServiceImpl implements LoginService {
 	
@@ -37,6 +39,19 @@ public class LoginServiceImpl implements LoginService {
 		}
 			
 		return false;
+	}
+
+	@Override
+	public boolean editLoginCredentials(Login login , Integer id) {
+		boolean success= false;
+		if (
+			loginRepository.getOne(id)!=null) {
+			loginRepository.save(login);
+			success=true;
+			return success;
+		}
+		return success;
+		
 	}
 
 }

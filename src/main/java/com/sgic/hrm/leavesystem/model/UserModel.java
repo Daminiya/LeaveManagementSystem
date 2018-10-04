@@ -17,6 +17,8 @@ public class UserModel {
 	private Department departmentId;
 	private Integer servicePeriod;
 	private String password;
+	
+	
 
 	public Integer getId() {
 		return id;
