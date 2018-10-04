@@ -16,6 +16,20 @@ public class StatusServiceImp implements StatusService {
 	public Iterable<Status> getAllStatus(){
 		return statusRepository.findAll();
 	}
+
+	@Override
+	public boolean save(Status status) {
+		// TODO Auto-generated method stub
+		statusRepository.save(status);
+		return true;
+	}
+
+	@Override
+	public boolean delete(int id) {
+		// TODO Auto-generated method stub
+		statusRepository.deleteById(id);
+		return true;
+	}
 	
 
 }
