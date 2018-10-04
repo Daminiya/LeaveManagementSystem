@@ -14,4 +14,8 @@ public interface LoginService {
 
 	boolean editLoginCredentials(Login login, Integer id);
 
+	String getLogedUserRoleByUserName(String userName);
+	
+	String getUserDepartmentByUserName(String userName);
+
 }

@@ -8,6 +8,7 @@ public interface UserService {
 
 	boolean addUser(User user);
 	List<User> getUser();
+	User getUserById(Integer id);
 	public String getUserDepartmentByUserId(Integer userId);
 	boolean editUser(User user, Integer id);
 }

@@ -27,10 +27,12 @@ public class Login implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
-	private String password;
+
 	@OneToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "user_Name", referencedColumnName = "userName")
+	@JoinColumn(name = "userName", referencedColumnName = "userName")
 	private User user;
+	private String password;
+
 	@ManyToOne(cascade = { CascadeType.DETACH })
 	@JoinColumn(name = "role_id")
 	private Role roleId;
@@ -38,17 +40,9 @@ public class Login implements Serializable {
 	@ManyToOne(cascade = { CascadeType.DETACH })
 	@JoinColumn(name = "department_id")
 	private Department departmentId;
-	
+
 	@UpdateTimestamp
 	private ZonedDateTime updatedAt;
-
-	public String getPassword() {
-		return password;
-	}
-
-	public void setPassword(String password) {
-		this.password = password;
-	}
 
 	public Integer getId() {
 		return id;
@@ -66,7 +60,14 @@ public class Login implements Serializable {
 		this.user = user;
 	}
 
-	// @JsonIgnore
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
 	public Role getRoleId() {
 		return roleId;
 	}
@@ -75,7 +76,6 @@ public class Login implements Serializable {
 		this.roleId = roleId;
 	}
 
-//	@JsonIgnore
 	public Department getDepartmentId() {
 		return departmentId;
 	}

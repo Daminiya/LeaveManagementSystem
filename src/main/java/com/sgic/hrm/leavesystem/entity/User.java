@@ -10,7 +10,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.SecondaryTable;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.CreationTimestamp;
@@ -19,7 +18,6 @@ import org.hibernate.annotations.UpdateTimestamp;
 
 @Entity
 @Table(schema = "leave_system", name = "user")
-@SecondaryTable(name = "login")
 public class User implements Serializable {
 	/**
 	 * 
@@ -27,7 +25,6 @@ public class User implements Serializable {
 	private static final long serialVersionUID = -346839090403770783L;
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column
 	private Integer id;
 	@NaturalId
 	@Column(updatable = false, nullable = false)
@@ -46,22 +43,13 @@ public class User implements Serializable {
 	private Department departmentId;
 
 	private Integer servicePeriod;
+
 	@CreationTimestamp
 	@Column(updatable = false, nullable = false)
 	private ZonedDateTime createdAt;
+
 	@UpdateTimestamp
 	private ZonedDateTime updatedAt;
-
-	@Column(table = "login")
-	private String password;
-
-	public String getPassword() {
-		return password;
-	}
-
-	public void setPassword(String password) {
-		this.password = password;
-	}
 
 	public Integer getId() {
 		return id;
@@ -111,7 +99,6 @@ public class User implements Serializable {
 		this.joinDate = joinDate;
 	}
 
-//	@JsonIgnore
 	public Role getRoleId() {
 		return roleId;
 	}
@@ -119,8 +106,7 @@ public class User implements Serializable {
 	public void setRoleId(Role roleId) {
 		this.roleId = roleId;
 	}
-
-//	@JsonIgnore
+	
 	public Department getDepartmentId() {
 		return departmentId;
 	}
