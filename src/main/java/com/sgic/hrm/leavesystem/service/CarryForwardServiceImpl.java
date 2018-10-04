@@ -9,20 +9,25 @@ import com.sgic.hrm.leavesystem.entity.CarryForward;
 import com.sgic.hrm.leavesystem.repository.CarryForwardRepository;
 
 @Service
-public class CarryForwardImpl implements CarryForwardService {
+public class CarryForwardServiceImpl implements CarryForwardService {
 	@Autowired
 	CarryForwardRepository carryForwardRepository;
 
 	@Override
-	public boolean AddCarryForward(CarryForward carryForward) {
+	public boolean addCarryForward(CarryForward carryForward) {
 		carryForwardRepository.save(carryForward);
 		return true;
 	}
 
 	@Override
-	public List<CarryForward> ViewCarryForward() {
-		
+	public List<CarryForward> viewCarryForward() {
+
 		return carryForwardRepository.findAll();
+	}
+
+	@Override
+	public Integer getCarryForwardDaysByUserId(Integer id) {
+		return carryForwardRepository.getOne(id).getCarryForwardDays();
 	}
 
 }
