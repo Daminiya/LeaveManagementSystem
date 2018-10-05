@@ -52,7 +52,7 @@ public class LeaveTypeController {
 	}
 	
 	@DeleteMapping("/leavetype/{id}")
-	public HttpStatus deleteUsers(@PathVariable Integer id) {
+	public HttpStatus deleteLeaveType(@PathVariable Integer id) {
 		boolean res=leaveTypeService.deleteLeaveType(id);
 		if(res) {
 			return HttpStatus.OK;

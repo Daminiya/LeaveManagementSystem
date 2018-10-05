@@ -1,6 +1,5 @@
 package com.sgic.hrm.leavesystem.service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +14,6 @@ public class LeaveTypeServiceImpl implements LeaveTypeService{
 	@Autowired
 	LeaveTypeRepository leaveTypeRepository; 
 	
-	List<LeaveType> leavetype=new ArrayList<>();
 	
 	@Override
 	public boolean addLeaveType(LeaveType leavetype) {
@@ -25,8 +23,8 @@ public class LeaveTypeServiceImpl implements LeaveTypeService{
 
 	@Override
 	public List<LeaveType> getLeaveType() {
-		leavetype=leaveTypeRepository.findAll();
-		return leavetype;
+	
+		return leaveTypeRepository.findAll();
 	}
 
 	@Override
