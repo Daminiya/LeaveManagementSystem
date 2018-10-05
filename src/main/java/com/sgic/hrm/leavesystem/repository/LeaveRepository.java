@@ -14,7 +14,7 @@ public interface LeaveRepository extends JpaRepository<Leave, Integer> {
 
 	@Query("SELECT lv FROM Leave as lv WHERE lv.userId.id=?1 AND lv.leaveTypeId.id=?2 ")
 	Leave getLeaveById(Integer userId, Integer leaveId);
-	
+
 	@Query("SELECT lv FROM Leave as lv WHERE lv.userId.id=?1")
 	List<Leave> getLeaveByUserId(Integer userId);
 
@@ -25,5 +25,9 @@ public interface LeaveRepository extends JpaRepository<Leave, Integer> {
 	
 	
 	
+
+// Code done by jerobert
+	@Query("select l from Leave as l where l.userId.id = ?1 and l.leaveTypeId.id = ?2")
+	Leave findRemaingDaysByUserIdAndLeaveTypeId(int uid, int lid);
 
 }

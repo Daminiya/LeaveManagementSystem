@@ -43,13 +43,32 @@ public class LeaveServiceImpl implements LeaveService {
 		}
 		return true;
 	}
-	
+
 	@Override
 	public boolean deleteLeave(Integer userId) {
 		List<Leave> leave = leaveRepository.getLeaveByUserId(userId);
 		for (Leave l : leave) {
-			leaveRepository.deleteById(l.getId());			
+			leaveRepository.deleteById(l.getId());
 		}
 		return true;
 	}
+
+	@Override
+	public float increaseRemaingLeaveDays(float numOfDays, int userId, int leaveTypeId) {
+		Leave leaveObj = leaveRepository.findRemaingDaysByUserIdAndLeaveTypeId(userId, leaveTypeId);
+		float newRemaingDays = leaveObj.getRemainDays() + numOfDays;
+		leaveObj.setRemainDays(newRemaingDays);
+		leaveRepository.save(leaveObj);
+		return newRemaingDays;
+	}
+
+	@Override
+	public float decreaseRemaingLeaveDays(float numOfDays, int userId, int leaveTypeId) {
+		Leave leaveObj = leaveRepository.findRemaingDaysByUserIdAndLeaveTypeId(userId, leaveTypeId);
+		float newRemaingDays = leaveObj.getRemainDays() - numOfDays;
+		leaveObj.setRemainDays(newRemaingDays);
+		leaveRepository.save(leaveObj);
+		return newRemaingDays;
+	}
+
 }
