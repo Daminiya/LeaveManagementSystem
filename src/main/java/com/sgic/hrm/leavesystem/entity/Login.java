@@ -28,8 +28,9 @@ public class Login implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 
+	
 	@OneToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "userName", referencedColumnName = "userName")
+	@JoinColumn(name = "userName", referencedColumnName = "userName",updatable=false,nullable=false)
 	private User user;
 	private String password;
 

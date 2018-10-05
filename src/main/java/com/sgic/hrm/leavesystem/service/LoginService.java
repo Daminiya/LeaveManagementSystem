@@ -13,9 +13,13 @@ public interface LoginService {
 	boolean getLoginVerification(String userName, String password);
 
 	boolean editLoginCredentials(Login login, Integer id);
-
+	
 	String getLogedUserRoleByUserName(String userName);
 	
 	String getUserDepartmentByUserName(String userName);
+
+	boolean deleteLogin(Integer userId);
+
+	
 
 }

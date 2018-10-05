@@ -7,13 +7,18 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.sgic.hrm.leavesystem.entity.Login;
+import com.sgic.hrm.leavesystem.entity.User;
 import com.sgic.hrm.leavesystem.repository.LoginRepository;
+import com.sgic.hrm.leavesystem.repository.UserRepository;
 
 @Transactional
 @Service
 public class LoginServiceImpl implements LoginService {
 	@Autowired
 	private LoginRepository loginRepository;
+	
+	@Autowired
+	private UserRepository userRepository;
 
 	@Override
 	public boolean addLoginCredential(Login login) {
@@ -39,14 +44,18 @@ public class LoginServiceImpl implements LoginService {
 	}
 
 	@Override
-
 	public boolean editLoginCredentials(Login login , Integer id) {
 		boolean success= false;
-		if (
-			loginRepository.getOne(id)!=null) {
-			loginRepository.save(login);
-			success=true;
-			return success;
+		User user = userRepository.findById(id).orElse(null);
+		if (user!=null) {
+			Login lg=loginRepository.findByUserName(user.getUserName());
+			if(lg.getId()!=null) {
+				login.setId(lg.getId());
+				login.setUser(user);
+				loginRepository.save(login);
+				success=true;
+			}
+			
 		}
 		return success;
 		
@@ -56,7 +65,6 @@ public class LoginServiceImpl implements LoginService {
 		if (userName != null) {
 			Login login = loginRepository.findByUserName(userName);
 			String role = login.getRoleId().getRoleName();
-
 			return role;
 
 		}
@@ -77,4 +85,18 @@ public class LoginServiceImpl implements LoginService {
 		return null;
 	}
 
+	
+	@Override
+	public  boolean deleteLogin(Integer userId)	{
+		boolean status = false;
+		
+		User user = userRepository.findById(userId).orElse(null);
+		if(user != null) {
+		Login login = loginRepository.findByUserName(user.getUserName());
+		
+			loginRepository.deleteById(login.getId());
+			status = true;
+		}
+		return status;
+	}
 }
