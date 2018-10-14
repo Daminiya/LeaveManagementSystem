@@ -17,11 +17,14 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.sgic.hrm.leavesystem.DTOMapping.LeaveRequestDTOMapping;
 import com.sgic.hrm.leavesystem.entity.LeaveRequest;
 import com.sgic.hrm.leavesystem.entity.RejectLeaveRequest;
-import com.sgic.hrm.leavesystem.entity.User;
+
+import com.sgic.hrm.leavesystem.model.LeaveRequestDTO;
 import com.sgic.hrm.leavesystem.service.LeaveRequestService;
 import com.sgic.hrm.leavesystem.service.LeaveService;
+import com.sgic.hrm.leavesystem.service.LeaveTypeService;
 import com.sgic.hrm.leavesystem.service.RejectLeaveRequestService;
 import com.sgic.hrm.leavesystem.service.UserService;
 
@@ -37,18 +40,50 @@ public class LeaveRequestController {
 	RejectLeaveRequestService rejectLeaveRequestService;
 	@Autowired
 	UserService userService;
+	@Autowired
+	LeaveTypeService leaveTypeService;
+	
 
 	// Done by kowsikan
+//	@PostMapping("/leaverequest")
+//	public boolean addLeaveRequest(@RequestBody LeaveRequest leaveRequest) {
+//		// save record in leave request table
+//		if (leaveRequestService.addLeaveRequest(leaveRequest)) {
+//			leaveService.decreaseRemaingLeaveDays(leaveRequest.getLeaveDays(), leaveRequest.getUserId().getId(),
+//					leaveRequest.getLeaveTypeId().getId());
+//		}
+//		return true;
+//	}
+	
 	@PostMapping("/leaverequest")
-	public boolean addLeaveRequest(@RequestBody LeaveRequest leaveRequest) {
+	public boolean addLeaveRequestDTO(@RequestBody LeaveRequestDTO leaveRequestDTO) {
+		
+		LeaveRequest leaveRequest=LeaveRequestDTOMapping.LeaveRequestDTOToLeaveRequest(leaveRequestDTO);
+		
+		leaveRequest.setUserId(userService.getUserById(leaveRequestDTO.getUserId()));
+		leaveRequest.setLeaveTypeId(leaveTypeService.getLeaveTypeById(leaveRequestDTO.getLeaveTypeId()));
+		
+		
+		
+		leaveRequestService.addLeaveRequest(leaveRequest);
 		// save record in leave request table
-		if (leaveRequestService.addLeaveRequest(leaveRequest)) {
-			leaveService.decreaseRemaingLeaveDays(leaveRequest.getLeaveDays(), leaveRequest.getUserId().getId(),
-					leaveRequest.getLeaveTypeId().getId());
-		}
+//		if (leaveRequestService.addLeaveRequest(leaveRequest)) {
+//			
+//			leaveService.decreaseRemaingLeaveDays(leaveRequest.getLeaveDays(), leaveRequestDTO.getUserId(),
+//					 leaveRequestDTO.getLeaveTypeId());
+//		}
+		
+		
 		return true;
 	}
 
+	
+	@GetMapping("/leaveRequestModel")
+	public LeaveRequestDTO getMockLeaveRequestDTO(){
+		LeaveRequestDTO obj=new LeaveRequestDTO();
+		return obj;
+	}
+	
 	@GetMapping("/leaverequest")
 	public List<LeaveRequest> getData() {
 		return leaveRequestService.getData();
@@ -101,12 +136,12 @@ public class LeaveRequestController {
 	}
 
 	// get details of leave request by user id
-	@GetMapping("/leaverequest/user/{userId}")
-	public ResponseEntity<Iterable<LeaveRequest>> findLeaveRequestByUserId(@PathVariable("userId") int id) {
-		User user = userService.getUserById(id);
-		Iterable<LeaveRequest> leaveRequsetDetails = leaveRequestService.findByUserId(user);
-		return new ResponseEntity<>(leaveRequsetDetails, HttpStatus.OK);
-	}
+//	@GetMapping("/leaverequest/user/{userId}")
+//	public ResponseEntity<Iterable<LeaveRequest>> findLeaveRequestByUserId(@PathVariable("userId") int id) {
+//		User user = userService.getUserById(id);
+//		Iterable<LeaveRequest> leaveRequsetDetails = leaveRequestService.findByUserId(user);
+//		return new ResponseEntity<>(leaveRequsetDetails, HttpStatus.OK);
+//	}
 
 	// leave request details find by date
 	@GetMapping("/leaverequest/{date}")

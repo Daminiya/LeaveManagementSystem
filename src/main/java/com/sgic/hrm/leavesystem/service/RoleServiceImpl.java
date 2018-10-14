@@ -36,4 +36,11 @@ public class RoleServiceImpl implements RoleService {
 		return false;
 	}
 
+	@Override
+	public Role getRoleById(int id) {
+		// TODO Auto-generated method stub
+		
+		return roleRepository.findById(id);
+	}
+
 }

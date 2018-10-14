@@ -13,4 +13,6 @@ public interface LeaveTypeService {
 	boolean deleteLeaveType(Integer id);
 
 	boolean addLeaveType(LeaveType leavetype);
+	
+	LeaveType getLeaveTypeById(int id);
 }

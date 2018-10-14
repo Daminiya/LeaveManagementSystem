@@ -48,4 +48,11 @@ public class LeaveTypeServiceImpl implements LeaveTypeService {
 		return false;
 	}
 
+	@Override
+	public LeaveType getLeaveTypeById(int id) {
+		// TODO Auto-generated method stub
+		
+		return leaveTypeRepository.findById(id);
+	}
+
 }

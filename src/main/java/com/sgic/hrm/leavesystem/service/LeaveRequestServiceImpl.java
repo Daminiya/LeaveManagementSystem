@@ -62,6 +62,7 @@ public class LeaveRequestServiceImpl implements LeaveRequestService {
 	public boolean editLeaveRequestApproval(int id, int userId) {
 		LeaveRequest leaveRequest = leaveRequestRepository.findById(id).orElse(null);
 		User user = userRepository.findById(userId).orElse(null);
+		
 		if (leaveRequest != null) {
 			leaveRequest.setUserId(user);
 			leaveRequestRepository.save(leaveRequest);

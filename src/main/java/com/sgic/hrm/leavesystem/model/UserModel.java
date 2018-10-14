@@ -2,23 +2,22 @@ package com.sgic.hrm.leavesystem.model;
 
 import java.time.ZonedDateTime;
 
-import com.sgic.hrm.leavesystem.entity.Department;
-import com.sgic.hrm.leavesystem.entity.Role;
+
 
 public class UserModel {
 
-	private Integer id;
+	private int id;
 	private String userName;
 	private String email;
 	private String firstName;
 	private String lastName;
 	private ZonedDateTime joinDate;
-	private Role roleId;
-	private Department departmentId;
+	private Integer roleId;
+	private Integer departmentId;
 	private Integer servicePeriod;
 	private String password;
 
-	public Integer getId() {
+	public int getId() {
 		return id;
 	}
 
@@ -66,19 +65,19 @@ public class UserModel {
 		this.joinDate = joinDate;
 	}
 
-	public Role getRoleId() {
+	public Integer getRoleId() {
 		return roleId;
 	}
 
-	public void setRoleId(Role roleId) {
+	public void setRoleId(Integer roleId) {
 		this.roleId = roleId;
 	}
 
-	public Department getDepartmentId() {
+	public Integer getDepartmentId() {
 		return departmentId;
 	}
 
-	public void setDepartmentId(Department departmentId) {
+	public void setDepartmentId(Integer departmentId) {
 		this.departmentId = departmentId;
 	}
 

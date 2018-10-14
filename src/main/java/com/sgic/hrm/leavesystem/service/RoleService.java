@@ -9,4 +9,6 @@ public interface RoleService {
 	List<Role> getAllRoles();
 
 	boolean editRole(Role role, Integer id);
+	
+	Role getRoleById(int id);
 }

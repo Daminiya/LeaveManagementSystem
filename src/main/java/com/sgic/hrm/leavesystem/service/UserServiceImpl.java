@@ -15,18 +15,15 @@ public class UserServiceImpl implements UserService {
 	@Autowired
 	private UserRepository userRepository;
 
-	@Override
 	public boolean addUser(User user) {
 		userRepository.save(user);
 		return true;
 	}
 
-	@Override
 	public List<User> getUser() {
 		return userRepository.findAll();
 	}
 
-	@Override
 	public String getUserDepartmentByUserId(Integer userId) {
 		User user = userRepository.getOne(userId);
 		if (user != null) {
@@ -36,11 +33,13 @@ public class UserServiceImpl implements UserService {
 		return "Failed";
 
 	}
-	@Override
+	
 	public User getUserById(Integer id) throws NoSuchElementException {
 		User user = userRepository.findById(id).get();
 		return user;		
 	}
+	
+
 	
 	public boolean deleteUserById(Integer userId) {
 		boolean success = false;

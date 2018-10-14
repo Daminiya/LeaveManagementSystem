@@ -7,4 +7,5 @@ import com.sgic.hrm.leavesystem.entity.User;
 public interface UserRepository extends JpaRepository<User, Integer> {
 
 	User findByUserName(String userName);
+	
 }
