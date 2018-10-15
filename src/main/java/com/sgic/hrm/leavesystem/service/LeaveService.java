@@ -1,5 +1,9 @@
 package com.sgic.hrm.leavesystem.service;
 
+import java.util.List;
+
+import com.sgic.hrm.leavesystem.entity.Leave;
+
 public interface LeaveService {
 
 	boolean addLeaveAllocation(String userName);
@@ -10,5 +14,9 @@ public interface LeaveService {
 
 	// code done by Jerobert
 	float decreaseRemaingLeaveDays(float numOfDays, int userID, int leaveTypeId);
+	//remaining days 
+	Leave findRemaingDays(int uid, int lid);
+	//find remaining day by user 
+	List<Leave> findRemaingDays(Integer uid);
 
 }

@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.NoSuchElementException;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.sgic.hrm.leavesystem.entity.Role;
 import com.sgic.hrm.leavesystem.entity.Department;
+import com.sgic.hrm.leavesystem.entity.LeaveType;
 import com.sgic.hrm.leavesystem.entity.Login;
 import com.sgic.hrm.leavesystem.entity.User;
 import com.sgic.hrm.leavesystem.model.UserModel;
@@ -41,7 +43,7 @@ public class UserController {
 	
 	@Transactional
 	@PostMapping("/user")
-	public String createUser(@RequestBody UserModel userModel) {
+	public HttpStatus createUser(@RequestBody UserModel userModel) {
 		
 		User user = new User();
 		user.setFirstName(userModel.getFirstName());
@@ -57,7 +59,7 @@ public class UserController {
 		user.setEmail(userModel.getEmail());
 		user.setJoinDate(userModel.getJoinDate());
 		user.setServicePeriod(userModel.getServicePeriod());
-		userService.addUser(user);
+		
 		
 		Login login = new Login();
 		login.setUser(user);
@@ -65,11 +67,19 @@ public class UserController {
 		login.setPassword(userModel.getPassword());
 		
 		login.setRoleId(role);
-		loginService.addLoginCredential(login);
-		leaveService.addLeaveAllocation(userModel.getUserName());		
 		
-		return "OK";
+				
+		
+		
+		
+		boolean res=userService.addUser(user) && loginService.addLoginCredential(login) && leaveService.addLeaveAllocation(userModel.getUserName());
+		if(res) {
+			return HttpStatus.CREATED;
+		}
+		return HttpStatus.BAD_REQUEST;
 	}
+	
+	
 	
 	@GetMapping("/user")
 	public List<User> getUser(){

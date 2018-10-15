@@ -67,14 +67,15 @@ public class LeaveRequestController {
 		
 		leaveRequestService.addLeaveRequest(leaveRequest);
 		// save record in leave request table
-//		if (leaveRequestService.addLeaveRequest(leaveRequest)) {
-//			
-//			leaveService.decreaseRemaingLeaveDays(leaveRequest.getLeaveDays(), leaveRequestDTO.getUserId(),
-//					 leaveRequestDTO.getLeaveTypeId());
-//		}
+		if (leaveRequestService.addLeaveRequest(leaveRequest)) {
+			
+			leaveService.decreaseRemaingLeaveDays(leaveRequest.getLeaveDays(), leaveRequestDTO.getUserId(),
+					 leaveRequestDTO.getLeaveTypeId());
+			return true;
+		}
 		
 		
-		return true;
+		return false;
 	}
 
 	

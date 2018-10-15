@@ -16,29 +16,29 @@ public class LeaveServiceImpl implements LeaveService {
 
 	@Autowired
 	private LeaveRepository leaveRepository;
-	//@Autowired
-	///private LeaveTypeService leaveTypeService;
+	@Autowired
+	private LeaveTypeService leaveTypeService;
 	@Autowired
 	UserRepository UserRepository;
 
 	@Override
 	public boolean addLeaveAllocation(String userName) {
 
-//		User user = UserRepository.findByUserName(userName);
-//		List<LeaveType> leaveType = leaveTypeService.getLeaveType();
-//
-//		for (LeaveType lt : leaveType) {
-//			Leave leave = new Leave();
-//			leave.setUserId(user);
-//			leave.setLeaveTypeId(lt);
-//			if (lt.getLeaveType().equals("Annual")) {
-//				leave.setRemainDays(0);
-//			} else {
-//				leave.setRemainDays(lt.getAllocationDays());
-//			}
-//			leave.setUtilizedDays(0);
-//			leaveRepository.save(leave);
-//		}
+		User user = UserRepository.findByUserName(userName);
+		List<LeaveType> leaveType = leaveTypeService.getLeaveType();
+
+		for (LeaveType lt : leaveType) {
+			Leave leave = new Leave();
+			leave.setUserId(user);
+			leave.setLeaveTypeId(lt);
+			if (lt.getLeaveType().equals("Annual")) {
+				leave.setRemainDays(0);
+			} else {
+				leave.setRemainDays(lt.getAllocationDays());
+			}
+			leave.setUtilizedDays(0);
+			leaveRepository.save(leave);
+		}
 		return true;
 	}
 
@@ -67,6 +67,17 @@ public class LeaveServiceImpl implements LeaveService {
 		leaveObj.setRemainDays(newRemaingDays);
 		leaveRepository.save(leaveObj);
 		return newRemaingDays;
+	}
+
+	@Override
+	public Leave findRemaingDays(int uid, int lid) {
+		return leaveRepository.findRemaingDaysByUserIdAndLeaveTypeId(uid, lid);
+	}
+
+	@Override
+	public List<Leave> findRemaingDays(Integer uid) {
+		
+		return leaveRepository.findByUserId(uid);
 	}
 
 }
