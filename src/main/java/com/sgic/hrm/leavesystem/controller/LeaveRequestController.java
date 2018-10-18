@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.sgic.hrm.leavesystem.DTOMapping.LeaveRequestDTOMapping;
 import com.sgic.hrm.leavesystem.entity.LeaveRequest;
 import com.sgic.hrm.leavesystem.entity.RejectLeaveRequest;
-
+import com.sgic.hrm.leavesystem.entity.User;
 import com.sgic.hrm.leavesystem.model.LeaveRequestDTO;
 import com.sgic.hrm.leavesystem.service.LeaveRequestService;
 import com.sgic.hrm.leavesystem.service.LeaveService;
@@ -31,7 +31,7 @@ import com.sgic.hrm.leavesystem.service.UserService;
 @CrossOrigin(origins = "http://localhost:4200", maxAge = 3600)
 @RestController
 public class LeaveRequestController {
-	
+
 	@Autowired
 	LeaveRequestService leaveRequestService;
 	@Autowired
@@ -42,7 +42,6 @@ public class LeaveRequestController {
 	UserService userService;
 	@Autowired
 	LeaveTypeService leaveTypeService;
-	
 
 	// Done by kowsikan
 //	@PostMapping("/leaverequest")
@@ -54,37 +53,33 @@ public class LeaveRequestController {
 //		}
 //		return true;
 //	}
-	
+
 	@PostMapping("/leaverequest")
 	public boolean addLeaveRequestDTO(@RequestBody LeaveRequestDTO leaveRequestDTO) {
-		
-		LeaveRequest leaveRequest=LeaveRequestDTOMapping.LeaveRequestDTOToLeaveRequest(leaveRequestDTO);
-		
+
+		LeaveRequest leaveRequest = LeaveRequestDTOMapping.LeaveRequestDTOToLeaveRequest(leaveRequestDTO);
+
 		leaveRequest.setUserId(userService.getUserById(leaveRequestDTO.getUserId()));
 		leaveRequest.setLeaveTypeId(leaveTypeService.getLeaveTypeById(leaveRequestDTO.getLeaveTypeId()));
-		
-		
-		
+
 		leaveRequestService.addLeaveRequest(leaveRequest);
 		// save record in leave request table
 		if (leaveRequestService.addLeaveRequest(leaveRequest)) {
-			
+
 			leaveService.decreaseRemaingLeaveDays(leaveRequest.getLeaveDays(), leaveRequestDTO.getUserId(),
-					 leaveRequestDTO.getLeaveTypeId());
+					leaveRequestDTO.getLeaveTypeId());
 			return true;
 		}
-		
-		
+
 		return false;
 	}
 
-	
 	@GetMapping("/leaveRequestModel")
-	public LeaveRequestDTO getMockLeaveRequestDTO(){
-		LeaveRequestDTO obj=new LeaveRequestDTO();
+	public LeaveRequestDTO getMockLeaveRequestDTO() {
+		LeaveRequestDTO obj = new LeaveRequestDTO();
 		return obj;
 	}
-	
+
 	@GetMapping("/leaverequest")
 	public List<LeaveRequest> getData() {
 		return leaveRequestService.getData();
@@ -137,12 +132,11 @@ public class LeaveRequestController {
 	}
 
 	// get details of leave request by user id
-//	@GetMapping("/leaverequest/user/{userId}")
-//	public ResponseEntity<Iterable<LeaveRequest>> findLeaveRequestByUserId(@PathVariable("userId") int id) {
-//		User user = userService.getUserById(id);
-//		Iterable<LeaveRequest> leaveRequsetDetails = leaveRequestService.findByUserId(user);
-//		return new ResponseEntity<>(leaveRequsetDetails, HttpStatus.OK);
-//	}
+	@GetMapping("/leaverequest/user/{userId}")
+	public ResponseEntity<List<LeaveRequest>> findLeaveRequestByUserId(@PathVariable("userId") Integer id) {		
+		List<LeaveRequest> leaveRequsetDetails = leaveRequestService.findByUserId(id);
+		return new ResponseEntity<>(leaveRequsetDetails, HttpStatus.OK);
+	}
 
 	// leave request details find by date
 	@GetMapping("/leaverequest/{date}")

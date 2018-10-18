@@ -15,4 +15,6 @@ public interface LeaveTypeService {
 	boolean addLeaveType(LeaveType leavetype);
 	
 	LeaveType getLeaveTypeById(int id);
+	
+	
 }
