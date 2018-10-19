@@ -88,15 +88,14 @@ public class LoginServiceImpl implements LoginService {
 	
 	@Override
 	public  boolean deleteLogin(Integer userId)	{
-		boolean status = false;
 		
 		User user = userRepository.findById(userId).orElse(null);
 		if(user != null) {
 		Login login = loginRepository.findByUserName(user.getUserName());
 		
 			loginRepository.deleteById(login.getId());
-			status = true;
+			return true;
 		}
-		return status;
+		return false;
 	}
 }

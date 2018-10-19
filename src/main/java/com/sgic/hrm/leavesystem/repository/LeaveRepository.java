@@ -16,7 +16,7 @@ public interface LeaveRepository extends JpaRepository<Leave, Integer> {
 	Leave getLeaveById(Integer userId, Integer leaveId);
 
 	@Query("SELECT lv FROM Leave as lv WHERE lv.userId.id=?1")
-	List<Leave> getLeaveByUserId(Integer userId);
+	List<Leave> getLeavesByUserId(Integer userId);
 
 	@Transactional
 	@Modifying

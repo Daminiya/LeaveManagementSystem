@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.NoSuchElementException;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -79,14 +80,12 @@ public class UserController {
 	
 	@Transactional
 	@DeleteMapping("/user/{id}")
-	public boolean deleteUser(@PathVariable("id") Integer userId) {
-		boolean test = false;
-		boolean test1 = leaveService.deleteLeave(userId);	
-		boolean test2 = loginService.deleteLogin(userId);		
-		boolean test3 = userService.deleteUserById(userId);
-		if(test2 && test1 && test3)
-			test = true;
-		return test;
+	public HttpStatus deleteUser(@PathVariable("id") Integer userId) {
+
+		if(loginService.deleteLogin(userId) && leaveService.deleteLeaves(userId) && userService.deleteUserById(userId))
+			return HttpStatus.OK;
+		else
+			return HttpStatus.BAD_REQUEST;
 	}
 
 

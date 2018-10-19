@@ -58,11 +58,10 @@ public class UserServiceImpl implements UserService {
 	}
 	
 	public boolean deleteUserById(Integer userId) {
-		boolean success = false;
 		if (userRepository.findById(userId).isPresent()) {
 			userRepository.deleteById(userId);
-			success = true;
+			return true;
 		}
-		return success;
+		return false;
 	}
 }

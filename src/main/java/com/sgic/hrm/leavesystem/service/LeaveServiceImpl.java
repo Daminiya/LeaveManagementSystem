@@ -45,10 +45,10 @@ public class LeaveServiceImpl implements LeaveService {
 	}
 
 	@Override
-	public boolean deleteLeave(Integer userId) {
-		List<Leave> leave = leaveRepository.getLeaveByUserId(userId);
-		for (Leave l : leave) {
-			leaveRepository.deleteById(l.getId());
+	public boolean deleteLeaves(Integer userId) {
+		List<Leave> leaves = leaveRepository.getLeavesByUserId(userId);
+		for (Leave leave : leaves) {
+			leaveRepository.deleteById(leave.getId());
 		}
 		return true;
 	}
