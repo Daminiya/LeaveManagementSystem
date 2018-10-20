@@ -2,7 +2,7 @@ package com.sgic.hrm.leavesystem.entity;
 
 import java.io.File;
 import java.io.Serializable;
-import java.time.ZonedDateTime;
+import java.util.Date;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -12,6 +12,9 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 
 @Entity
@@ -36,8 +39,8 @@ public class LeaveRequest implements Serializable {
 	@JoinColumn(name = "status_id")
 	private Status statusId;
 
-	private ZonedDateTime startDate;
-	private ZonedDateTime endDate;
+	private Date startDate;
+	private Date endDate;
 	private String reason;
 	private Float leaveDays;
 	private File medicalReports;
@@ -50,8 +53,11 @@ public class LeaveRequest implements Serializable {
 	@JoinColumn(name = "approved_by")
 	private User approvedBy;
 
-	private ZonedDateTime createdAt;
-	private ZonedDateTime updatedAt;
+	@CreationTimestamp
+	private Date createdAt;
+	
+	@UpdateTimestamp
+	private Date updatedAt;
 
 	public Integer getId() {
 		return id;
@@ -85,19 +91,20 @@ public class LeaveRequest implements Serializable {
 		this.statusId = statusId;
 	}
 
-	public ZonedDateTime getStartDate() {
+	
+	public Date getStartDate() {
 		return startDate;
 	}
 
-	public void setStartDate(ZonedDateTime startDate) {
+	public void setStartDate(Date startDate) {
 		this.startDate = startDate;
 	}
 
-	public ZonedDateTime getEndDate() {
+	public Date getEndDate() {
 		return endDate;
 	}
 
-	public void setEndDate(ZonedDateTime endDate) {
+	public void setEndDate(Date endDate) {
 		this.endDate = endDate;
 	}
 
@@ -141,20 +148,22 @@ public class LeaveRequest implements Serializable {
 		this.approvedBy = approvedBy;
 	}
 
-	public ZonedDateTime getCreatedAt() {
+	public Date getCreatedAt() {
 		return createdAt;
 	}
 
-	public void setCreatedAt(ZonedDateTime createdAt) {
+	public void setCreatedAt(Date createdAt) {
 		this.createdAt = createdAt;
 	}
 
-	public ZonedDateTime getUpdatedAt() {
+	public Date getUpdatedAt() {
 		return updatedAt;
 	}
 
-	public void setUpdatedAt(ZonedDateTime updatedAt) {
+	public void setUpdatedAt(Date updatedAt) {
 		this.updatedAt = updatedAt;
 	}
+
+
 
 }

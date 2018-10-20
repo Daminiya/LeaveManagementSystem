@@ -37,6 +37,7 @@ public class CancelLeaveRequestServiceImpl implements CancelLeaveRequestService 
 		CancelLeaveRequest cancelLeaveRequestObj = cancelLeaveRequestRepository
 				.findByLeaveRequestId(leaveReqRepository.findById(leaveRequsetId).orElse(null));
 		User userObj = userRepository.findById(userId).orElse(null);
+		
 		cancelLeaveRequestObj.setCancelledBy(userObj);
 		cancelLeaveRequestRepository.save(cancelLeaveRequestObj);
 		return true;

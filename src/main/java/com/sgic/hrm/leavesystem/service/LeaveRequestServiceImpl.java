@@ -62,8 +62,9 @@ public class LeaveRequestServiceImpl implements LeaveRequestService {
 	public boolean editLeaveRequestApproval(int id, int userId) {
 		LeaveRequest leaveRequest = leaveRequestRepository.findById(id).orElse(null);
 		User user = userRepository.findById(userId).orElse(null);
+		
 		if (leaveRequest != null) {
-			leaveRequest.setUserId(user);
+			leaveRequest.setApprovedBy(user);
 			leaveRequestRepository.save(leaveRequest);
 			return true;
 		}
@@ -72,8 +73,8 @@ public class LeaveRequestServiceImpl implements LeaveRequestService {
 
 	// get details of leave request by user id
 	@Override
-	public Iterable<LeaveRequest> findByUserId(User id) {
-		return leaveRequestRepository.findByUserId(id);
+	public List<LeaveRequest> findByUserId(Integer id) {
+		return leaveRequestRepository.findByUser(id);
 	}
 
 	// date wise pick the leave request records
@@ -81,5 +82,6 @@ public class LeaveRequestServiceImpl implements LeaveRequestService {
 	public List<LeaveRequest> findByDate(ZonedDateTime date) {
 		return leaveRequestRepository.findByDate(date);
 	}
+
 
 }

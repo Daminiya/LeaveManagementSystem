@@ -3,7 +3,6 @@ package com.sgic.hrm.leavesystem.entity;
 import java.io.Serializable;
 import java.time.ZonedDateTime;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -12,9 +11,12 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.NaturalId;
+import org.hibernate.annotations.UpdateTimestamp;
+
 @Entity
 @Table(schema = "leave_system", name = "user")
-
 public class User implements Serializable {
 	/**
 	 * 
@@ -23,22 +25,27 @@ public class User implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
+	@NaturalId
 	private String userName;
 	private String email;
 	private String firstName;
 	private String lastName;
 	private ZonedDateTime joinDate;
 
-	@ManyToOne(cascade = { CascadeType.PERSIST })
+	@ManyToOne
 	@JoinColumn(name = "role_id")
 	private Role roleId;
 
-	@ManyToOne(cascade = { CascadeType.PERSIST })
+	@ManyToOne
 	@JoinColumn(name = "department_id")
 	private Department departmentId;
 
 	private Integer servicePeriod;
+
+	@CreationTimestamp
 	private ZonedDateTime createdAt;
+
+	@UpdateTimestamp
 	private ZonedDateTime updatedAt;
 
 	public Integer getId() {

@@ -26,8 +26,9 @@ public interface LeaveRequestService {
 	// edit leave request Approved
 	boolean editLeaveRequestApproval(int id, int userId);
 
-	public Iterable<LeaveRequest> findByUserId(User id);
+	public List<LeaveRequest> findByUserId(Integer id);
 
 	// date wise pick the leave request records done by fasla
 	public List<LeaveRequest> findByDate(ZonedDateTime date);
+
 }
