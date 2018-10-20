@@ -3,6 +3,7 @@ package com.sgic.hrm.leavesystem.DTOMapping;
 import com.sgic.hrm.leavesystem.Dto.LeaveRequestDTO;
 import com.sgic.hrm.leavesystem.entity.LeaveRequest;
 
+
 public class LeaveRequestDTOMapping {
 
 	public static LeaveRequest LeaveRequestDTOToLeaveRequest(LeaveRequestDTO leaveRequestDTO) {

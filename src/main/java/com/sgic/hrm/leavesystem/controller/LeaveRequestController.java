@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -79,12 +78,14 @@ public class LeaveRequestController {
 	public LeaveRequestDTO getMockLeaveRequestDTO() {
 		LeaveRequestDTO obj = new LeaveRequestDTO();
 		return obj;
+
 	}
 	
 	@GetMapping("/leaveApprovedto")
 	public LeaveRequestProcessDto getMockLeaveApproveDTO() {
 		LeaveRequestProcessDto obj= new LeaveRequestProcessDto();
 		return obj;
+
 	}
 
 	@GetMapping("/leaverequest")
