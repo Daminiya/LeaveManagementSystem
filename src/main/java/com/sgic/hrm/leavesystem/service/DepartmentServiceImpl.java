@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.sgic.hrm.leavesystem.entity.Department;
+import com.sgic.hrm.leavesystem.entity.LeaveType;
 import com.sgic.hrm.leavesystem.repository.DepartmentRepository;
 @Service
 public class DepartmentServiceImpl  implements DepartmentService{
@@ -23,13 +24,25 @@ public class DepartmentServiceImpl  implements DepartmentService{
 		return departmentRepository.findAll();
 	}
 
-
+//
+//	@Override
+//	public boolean editDepartment(Department department, Integer id) {
+//		boolean success = false;
+//		if(departmentRepository.getOne(id != null) {
+//			departmentRepository.save(department);
+//			success = true;
+//		}
+//		return success;
+//	}
+	
 	@Override
-	public boolean editDepartment(Department department) {
+	public boolean editDepartment(Department department, Integer id) {
 		boolean success = false;
-		if(departmentRepository.getOne(department.getId()) != null) {
+		if (departmentRepository.getOne(id) != null) {
+			department.setId(id);
 			departmentRepository.save(department);
 			success = true;
+			return success;
 		}
 		return success;
 	}
