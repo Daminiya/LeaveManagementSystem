@@ -15,11 +15,12 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.sgic.hrm.leavesystem.entity.Role;
+import com.sgic.hrm.leavesystem.Dto.UserModel;
+
 import com.sgic.hrm.leavesystem.entity.Department;
-import com.sgic.hrm.leavesystem.entity.LeaveType;
 import com.sgic.hrm.leavesystem.entity.Login;
 import com.sgic.hrm.leavesystem.entity.User;
-import com.sgic.hrm.leavesystem.model.UserModel;
+
 import com.sgic.hrm.leavesystem.service.DepartmentService;
 import com.sgic.hrm.leavesystem.service.LeaveService;
 import com.sgic.hrm.leavesystem.service.LoginService;

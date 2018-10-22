@@ -12,9 +12,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.sgic.hrm.leavesystem.Dto.LoggedUserModel;
+import com.sgic.hrm.leavesystem.Dto.LoginModel;
 import com.sgic.hrm.leavesystem.entity.Login;
-import com.sgic.hrm.leavesystem.model.LoggedUserModel;
-import com.sgic.hrm.leavesystem.model.LoginModel;
 import com.sgic.hrm.leavesystem.service.LoginService;
 
 @RestController
