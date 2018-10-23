@@ -17,42 +17,40 @@ import com.sgic.hrm.leavesystem.service.LoginService;
 @RestController
 public class LoginController {
 
-  @Autowired
-  LoginService loginService;
+	@Autowired
+	LoginService loginService;
 
-  @GetMapping("/login")
-  public List<Login> viewAllLogin() {
-    return loginService.getAllLoginCredentials();
-  }
+	@GetMapping("/login")
+	public List<Login> viewAllLogin() {
+		return loginService.getAllLoginCredentials();
+	}
 
-  @PostMapping("/login")
-  public LoggedUserModel getLoginCredentials(HttpSession session,
-      @RequestBody LoginModel loginModel) {
+	@PostMapping("/login")
+	public LoggedUserModel getLoginCredentials(HttpSession session, @RequestBody LoginModel loginModel) {
 
-    String loginUserName = loginModel.getUserName();
-    String loginPassword = loginModel.getPassword();
-    if (loginService.getLoginVerification(loginUserName, loginPassword)) {
-      session.setAttribute("userName", loginUserName);
-      String department = loginService.getUserDepartmentByUserName(loginUserName);
-      String role = loginService.getLogedUserRoleByUserName(loginUserName);
+		String loginUserName = loginModel.getUserName();
+		String loginPassword = loginModel.getPassword();
+		if (loginService.getLoginVerification(loginUserName, loginPassword)) {
+			session.setAttribute("userName", loginUserName);
+			String department = loginService.getUserDepartmentByUserName(loginUserName);
+			String role = loginService.getLogedUserRoleByUserName(loginUserName);
 
-      LoggedUserModel loggedUserModel = new LoggedUserModel();
-      loggedUserModel.setUserName(loginUserName);
-      loggedUserModel.setUserRole(role);
-      loggedUserModel.setUserDepartment(department);
+			LoggedUserModel loggedUserModel = new LoggedUserModel();
+			loggedUserModel.setUserName(loginUserName);
+			loggedUserModel.setUserRole(role);
+			loggedUserModel.setUserDepartment(department);
 
-      // return new ResponseEntity<>("Successfully loged "+loginUserName+" - "+role+" -
-      // "+department, HttpStatus.OK);
-      // return new ResponseEntity<>(loggedUserModel, HttpStatus.OK);
-      return loggedUserModel;
+			// return new ResponseEntity<>("Successfully loged "+loginUserName+" - "+role+"
+			// -
+			// "+department, HttpStatus.OK);
+			// return new ResponseEntity<>(loggedUserModel, HttpStatus.OK);
+			return loggedUserModel;
 
-    }
+		}
 
-    // return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-    return null;
+		// return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		return null;
 
-  }
-
-
+	}
 
 }
