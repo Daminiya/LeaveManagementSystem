@@ -20,6 +20,8 @@ import com.sgic.hrm.leavesystem.entity.Department;
 import com.sgic.hrm.leavesystem.service.DepartmentService;
 
 @CrossOrigin(origins = "http://localhost:4200", maxAge = 3600)
+//@CrossOrigin(origins = "http://localhost:4401", maxAge = 3600)
+
 @RestController
 public class DepartmentController {
 	@Autowired

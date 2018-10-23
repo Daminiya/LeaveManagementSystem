@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.sgic.hrm.leavesystem.DTOMapping.LeaveRequestDTOMapping;
-import com.sgic.hrm.leavesystem.Dto.LeaveRequestDTO;
+import com.sgic.hrm.leavesystem.Dto.LeaveRequestDto;
 import com.sgic.hrm.leavesystem.Dto.LeaveRequestProcessDto;
 import com.sgic.hrm.leavesystem.entity.LeaveRequest;
 import com.sgic.hrm.leavesystem.entity.RejectLeaveRequest;
@@ -55,7 +55,7 @@ public class LeaveRequestController {
 //	}
 
 	@PostMapping("/leaverequest")
-	public boolean addLeaveRequestDTO(@RequestBody LeaveRequestDTO leaveRequestDTO) {
+	public boolean addLeaveRequestDTO(@RequestBody LeaveRequestDto leaveRequestDTO) {
 
 		LeaveRequest leaveRequest = LeaveRequestDTOMapping.LeaveRequestDTOToLeaveRequest(leaveRequestDTO);
 
@@ -75,8 +75,8 @@ public class LeaveRequestController {
 	}
 
 	@GetMapping("/leaveRequestModel")
-	public LeaveRequestDTO getMockLeaveRequestDTO() {
-		LeaveRequestDTO obj = new LeaveRequestDTO();
+	public LeaveRequestDto getMockLeaveRequestDTO() {
+		LeaveRequestDto obj = new LeaveRequestDto();
 		return obj;
 
 	}

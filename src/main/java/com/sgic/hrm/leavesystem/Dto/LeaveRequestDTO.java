@@ -1,12 +1,8 @@
 package com.sgic.hrm.leavesystem.Dto;
 
 import java.io.File;
-import java.time.ZonedDateTime;
 import java.util.Date;
-
-
-
-public class LeaveRequestDTO {
+public class LeaveRequestDto {
 
 	//leave request
 	private Integer id;
