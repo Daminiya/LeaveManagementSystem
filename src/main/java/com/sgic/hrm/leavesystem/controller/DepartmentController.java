@@ -50,9 +50,9 @@ public class DepartmentController {
 		return departmentService.getById(id);
 	}
 
-	@PutMapping("/department")
-	public HttpStatus editDepartment(@RequestBody Department department) {
-		boolean test = departmentService.editDepartment(department);
+	@PutMapping("/department/{id}")
+	public HttpStatus editDepartment(@RequestBody Department department,@PathVariable("id") Integer id) {
+		boolean test = departmentService.editDepartment(department,id);
 		if (test) {
 			return HttpStatus.ACCEPTED;
 		}
