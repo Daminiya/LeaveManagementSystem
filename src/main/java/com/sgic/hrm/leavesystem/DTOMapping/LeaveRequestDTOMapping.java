@@ -1,11 +1,12 @@
 package com.sgic.hrm.leavesystem.DTOMapping;
 
+import com.sgic.hrm.leavesystem.Dto.LeaveRequestDto;
 import com.sgic.hrm.leavesystem.entity.LeaveRequest;
-import com.sgic.hrm.leavesystem.model.LeaveRequestDTO;
+
 
 public class LeaveRequestDTOMapping {
 
-	public static LeaveRequest LeaveRequestDTOToLeaveRequest(LeaveRequestDTO leaveRequestDTO) {
+	public static LeaveRequest LeaveRequestDTOToLeaveRequest(LeaveRequestDto leaveRequestDTO) {
 		
 		LeaveRequest leaveRequest=new LeaveRequest();
 		
