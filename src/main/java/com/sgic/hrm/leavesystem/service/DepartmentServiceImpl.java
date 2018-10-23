@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.sgic.hrm.leavesystem.entity.Department;
-import com.sgic.hrm.leavesystem.entity.LeaveType;
 import com.sgic.hrm.leavesystem.repository.DepartmentRepository;
 @Service
 public class DepartmentServiceImpl  implements DepartmentService{
