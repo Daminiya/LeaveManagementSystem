@@ -29,4 +29,14 @@ public class StatusServiceImp implements StatusService {
 		return true;
 	}
 
+	@Override
+	public boolean editStatus(Status status, Integer id) {
+		if (statusRepository.getOne(id) != null) {
+			status.setId(id);
+			statusRepository.save(status);
+			return true;
+		}
+		return false;
+	}
+
 }
