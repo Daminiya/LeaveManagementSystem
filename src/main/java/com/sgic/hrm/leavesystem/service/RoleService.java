@@ -11,4 +11,6 @@ public interface RoleService {
 	boolean editRole(Role role, Integer id);
 	
 	Role getRoleById(int id);
+	
+	boolean deleteRole(Integer id);
 }
