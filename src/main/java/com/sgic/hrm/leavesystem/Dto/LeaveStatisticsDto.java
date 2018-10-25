@@ -4,8 +4,8 @@ public class LeaveStatisticsDto {
 	
 	private Integer leaveTypeId;
 	private String leaveType;
-	private Integer allocationDays;
-	private Integer remainingDays;
+	private Float allocationDays;
+	private Float remainingDays;
 	
 	public Integer getLeaveTypeId() {
 		return leaveTypeId;
@@ -19,16 +19,16 @@ public class LeaveStatisticsDto {
 	public void setLeaveType(String leaveType) {
 		this.leaveType = leaveType;
 	}
-	public Integer getAllocationDays() {
+	public Float getAllocationDays() {
 		return allocationDays;
 	}
-	public void setAllocationDays(Integer allocationDays) {
-		this.allocationDays = allocationDays;
+	public void setAllocationDays(float f) {
+		this.allocationDays = f;
 	}
-	public Integer getRemainingDays() {
+	public Float getRemainingDays() {
 		return remainingDays;
 	}
-	public void setRemainingDays(Integer remainingDays) {
+	public void setRemainingDays(Float remainingDays) {
 		this.remainingDays = remainingDays;
 	}
 	

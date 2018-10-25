@@ -1,10 +1,13 @@
 package com.sgic.hrm.leavesystem.service;
 
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.sgic.hrm.leavesystem.Dto.LeaveStatisticsDto;
 import com.sgic.hrm.leavesystem.entity.Leave;
 import com.sgic.hrm.leavesystem.entity.LeaveType;
 import com.sgic.hrm.leavesystem.entity.User;
@@ -75,9 +78,20 @@ public class LeaveServiceImpl implements LeaveService {
 	}
 
 	@Override
-	public List<Leave> findRemaingDays(Integer uid) {
+	public Iterable<LeaveStatisticsDto> findRemaingDays(Integer uid) {
 		
-		return leaveRepository.findByUserId(uid);
+		List<LeaveStatisticsDto> objList=new ArrayList<>();
+		Iterable<Leave> iterator=leaveRepository.findByUserId(uid);
+		for (Leave leave : iterator) {
+			LeaveStatisticsDto obj=new LeaveStatisticsDto();
+			obj.setLeaveTypeId(leave.getLeaveTypeId().getId());
+			obj.setLeaveType(leave.getLeaveTypeId().getLeaveType());
+			obj.setAllocationDays(leave.getLeaveTypeId().getAllocationDays());
+			obj.setRemainingDays(leave.getRemainDays());
+			objList.add(obj);
+		}
+
+		return objList;
 	}
 
 }
