@@ -4,7 +4,6 @@ import java.time.ZonedDateTime;
 import java.util.List;
 
 import com.sgic.hrm.leavesystem.entity.LeaveRequest;
-import com.sgic.hrm.leavesystem.entity.User;
 
 public interface LeaveRequestService {
 

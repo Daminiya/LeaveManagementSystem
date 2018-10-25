@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.sgic.hrm.leavesystem.entity.Role;
 import com.sgic.hrm.leavesystem.entity.Status;
 import com.sgic.hrm.leavesystem.service.StatusService;
 

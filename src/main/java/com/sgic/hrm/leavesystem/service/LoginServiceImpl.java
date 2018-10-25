@@ -14,7 +14,7 @@ import com.sgic.hrm.leavesystem.repository.UserRepository;
 public class LoginServiceImpl implements LoginService {
 	@Autowired
 	private LoginRepository loginRepository;
-	
+
 	@Autowired
 	private UserRepository userRepository;
 
@@ -66,15 +66,15 @@ public class LoginServiceImpl implements LoginService {
 
 		return null;
 	}
-	
+
 	@Override
-	public  boolean deleteLogin(Integer userId)	{
+	public boolean deleteLogin(Integer userId) {
 		boolean status = false;
-		
+
 		User user = userRepository.findById(userId).orElse(null);
-		if(user != null) {
-		Login login = loginRepository.findByUserName(user.getUserName());
-		
+		if (user != null) {
+			Login login = loginRepository.findByUserName(user.getUserName());
+
 			loginRepository.deleteById(login.getId());
 			status = true;
 		}

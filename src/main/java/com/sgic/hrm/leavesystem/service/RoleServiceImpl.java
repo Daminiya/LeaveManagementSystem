@@ -10,7 +10,7 @@ import com.sgic.hrm.leavesystem.repository.RoleRepository;
 
 @Service
 public class RoleServiceImpl implements RoleService {
-	
+
 	@Autowired
 	private RoleRepository roleRepository;
 
@@ -27,7 +27,7 @@ public class RoleServiceImpl implements RoleService {
 
 	@Override
 	public boolean editRole(Role role, Integer id) {
-		
+
 		if (roleRepository.getOne(id) != null) {
 			role.setId(id);
 			roleRepository.save(role);
@@ -39,17 +39,17 @@ public class RoleServiceImpl implements RoleService {
 	@Override
 	public Role getRoleById(int id) {
 		// TODO Auto-generated method stub
-		
+
 		return roleRepository.findById(id);
 	}
 
-  @Override
-  public boolean deleteRole(Integer id) {
-    if(roleRepository.getOne(id)!= null) {
-      roleRepository.deleteById(id);
-      return true;
-    }
-    return false;
-  }
+	@Override
+	public boolean deleteRole(Integer id) {
+		if (roleRepository.getOne(id) != null) {
+			roleRepository.deleteById(id);
+			return true;
+		}
+		return false;
+	}
 
 }

@@ -33,14 +33,12 @@ public class UserServiceImpl implements UserService {
 		return "Failed";
 
 	}
-	
+
 	public User getUserById(Integer id) throws NoSuchElementException {
 		User user = userRepository.findById(id).get();
-		return user;		
+		return user;
 	}
-	
 
-	
 	public boolean deleteUserById(Integer userId) {
 		boolean success = false;
 		if (userRepository.findById(userId).isPresent()) {

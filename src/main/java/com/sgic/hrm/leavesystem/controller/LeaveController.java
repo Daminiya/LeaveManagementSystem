@@ -25,7 +25,9 @@ public class LeaveController {
 	
 	@GetMapping("/leave/{uid}")
 	public ResponseEntity<List<Leave>> findRemaingDays(@PathVariable("uid") int uid) {
-		return new ResponseEntity<>(leaveService.findRemaingDays(uid), HttpStatus.OK);
+		
+		List<Leave> userLeave=leaveService.findRemaingDays(uid);
+		return new ResponseEntity<>(userLeave, HttpStatus.OK);
 	}
 
 }
