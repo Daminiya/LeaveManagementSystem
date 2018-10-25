@@ -80,4 +80,16 @@ public class LoginServiceImpl implements LoginService {
 		}
 		return status;
 	}
+	
+	@Override
+	public int getLoggedUserIdByUserName(String userName) {
+	  if(userName != null) {
+	    Login login = loginRepository.findByUserName(userName);
+	    Integer userId = login.getUser().getId();
+	    
+	    return userId;
+	  }
+	  
+	  return 0;
+	}
 }

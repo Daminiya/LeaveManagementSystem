@@ -34,11 +34,13 @@ public class LoginController {
 			session.setAttribute("userName", loginUserName);
 			String department = loginService.getUserDepartmentByUserName(loginUserName);
 			String role = loginService.getLogedUserRoleByUserName(loginUserName);
+			Integer userId = loginService.getLoggedUserIdByUserName(loginUserName);
 
 			LoggedUserModel loggedUserModel = new LoggedUserModel();
 			loggedUserModel.setUserName(loginUserName);
 			loggedUserModel.setUserRole(role);
 			loggedUserModel.setUserDepartment(department);
+			loggedUserModel.setUserId(userId);
 
 			// return new ResponseEntity<>("Successfully loged "+loginUserName+" - "+role+"
 			// -

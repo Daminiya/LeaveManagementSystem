@@ -17,5 +17,7 @@ public interface LoginService {
 	String getUserDepartmentByUserName(String userName);
 	
 	boolean deleteLogin(Integer userId);
+	
+	int getLoggedUserIdByUserName(String userName);
 
 }
