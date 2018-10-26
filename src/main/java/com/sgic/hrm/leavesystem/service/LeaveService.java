@@ -2,6 +2,7 @@ package com.sgic.hrm.leavesystem.service;
 
 import java.util.List;
 
+import com.sgic.hrm.leavesystem.Dto.LeaveStatisticsDto;
 import com.sgic.hrm.leavesystem.entity.Leave;
 
 public interface LeaveService {
@@ -17,6 +18,6 @@ public interface LeaveService {
 	//remaining days 
 	Leave findRemaingDays(int uid, int lid);
 	//find remaining day by user 
-	List<Leave> findRemaingDays(Integer uid);
+	Iterable<LeaveStatisticsDto> findRemaingDays(Integer uid);
 
 }

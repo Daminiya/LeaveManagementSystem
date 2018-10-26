@@ -1,5 +1,6 @@
 package com.sgic.hrm.leavesystem.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.sgic.hrm.leavesystem.Dto.LeaveStatisticsDto;
 import com.sgic.hrm.leavesystem.entity.Leave;
 import com.sgic.hrm.leavesystem.service.LeaveService;
 @CrossOrigin(origins = "http://localhost:4200", maxAge = 3600)
@@ -24,7 +26,9 @@ public class LeaveController {
 	}
 	
 	@GetMapping("/leave/{uid}")
-	public ResponseEntity<List<Leave>> findRemaingDays(@PathVariable("uid") int uid) {
+	public ResponseEntity<Iterable<LeaveStatisticsDto>> findRemaingDays(@PathVariable("uid") int uid) {
+	
+
 		return new ResponseEntity<>(leaveService.findRemaingDays(uid), HttpStatus.OK);
 	}
 

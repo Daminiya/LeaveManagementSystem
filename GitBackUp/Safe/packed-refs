@@ -1,0 +1,7 @@
+# pack-refs with: peeled fully-peeled sorted 
+aa0d2ccf4ac1b1395070f47e5a7a1b56db12f038 refs/remotes/origin/lms-group1
+0ca6119faeb1cfa960ea86c309840646d1b4de1c refs/remotes/origin/lms-group2
+3b842860125d6813b74f48bb4575f41fd7d83602 refs/remotes/origin/lms-group3
+4f25a49742ecb8595ae7353887adaaf22c802fec refs/remotes/origin/lms-nimalan
+59579f27fa3b5d71e0711e59eb18b4fbdde47ae1 refs/remotes/origin/master
+291e2923226f52961e4ce5384eb4ddfea19fb502 refs/remotes/origin/test-merge

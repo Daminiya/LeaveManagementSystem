@@ -5,18 +5,17 @@ import java.util.List;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.sgic.hrm.leavesystem.Dto.LoginModel;
 import com.sgic.hrm.leavesystem.entity.Login;
 import com.sgic.hrm.leavesystem.model.LoggedUserModel;
-import com.sgic.hrm.leavesystem.model.LoginModel;
 import com.sgic.hrm.leavesystem.service.LoginService;
+
 @CrossOrigin(origins = "http://localhost:4200", maxAge = 3600)
 @RestController
 public class LoginController {
@@ -30,7 +29,7 @@ public class LoginController {
 	}
 
 	@PostMapping("/login")
-	public ResponseEntity<LoggedUserModel> getLoginCredentials(HttpSession session, @RequestBody LoginModel loginModel) {
+	public LoggedUserModel getLoginCredentials(HttpSession session, @RequestBody LoginModel loginModel) {
 
 		String loginUserName = loginModel.getUserName();
 		String loginPassword = loginModel.getPassword();
@@ -38,18 +37,24 @@ public class LoginController {
 			session.setAttribute("userName", loginUserName);
 			String department = loginService.getUserDepartmentByUserName(loginUserName);
 			String role = loginService.getLogedUserRoleByUserName(loginUserName);
-			
+			Integer userId = loginService.getLoggedUserIdByUserName(loginUserName);
+
 			LoggedUserModel loggedUserModel = new LoggedUserModel();
 			loggedUserModel.setUserName(loginUserName);
 			loggedUserModel.setUserRole(role);
 			loggedUserModel.setUserDepartment(department);
-			
-			//return new ResponseEntity<>("Successfully loged "+loginUserName+" - "+role+" - "+department, HttpStatus.OK);
-			return new ResponseEntity<>(loggedUserModel, HttpStatus.OK);
+			loggedUserModel.setUserId(userId);
+
+			// return new ResponseEntity<>("Successfully loged "+loginUserName+" - "+role+"
+			// -
+			// "+department, HttpStatus.OK);
+			// return new ResponseEntity<>(loggedUserModel, HttpStatus.OK);
+			return loggedUserModel;
 
 		}
 
-		return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		// return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		return null;
 
 	}
 

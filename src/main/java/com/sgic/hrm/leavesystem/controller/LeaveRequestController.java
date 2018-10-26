@@ -13,15 +13,15 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.sgic.hrm.leavesystem.DTOMapping.LeaveRequestDTOMapping;
+import com.sgic.hrm.leavesystem.Dto.LeaveRequestDto;
+import com.sgic.hrm.leavesystem.Dto.LeaveRequestProcessDto;
 import com.sgic.hrm.leavesystem.entity.LeaveRequest;
 import com.sgic.hrm.leavesystem.entity.RejectLeaveRequest;
 import com.sgic.hrm.leavesystem.entity.User;
-import com.sgic.hrm.leavesystem.model.LeaveRequestDTO;
 import com.sgic.hrm.leavesystem.service.LeaveRequestService;
 import com.sgic.hrm.leavesystem.service.LeaveService;
 import com.sgic.hrm.leavesystem.service.LeaveTypeService;
@@ -55,7 +55,7 @@ public class LeaveRequestController {
 //	}
 
 	@PostMapping("/leaverequest")
-	public boolean addLeaveRequestDTO(@RequestBody LeaveRequestDTO leaveRequestDTO) {
+	public boolean addLeaveRequestDTO(@RequestBody LeaveRequestDto leaveRequestDTO) {
 
 		LeaveRequest leaveRequest = LeaveRequestDTOMapping.LeaveRequestDTOToLeaveRequest(leaveRequestDTO);
 
@@ -75,9 +75,17 @@ public class LeaveRequestController {
 	}
 
 	@GetMapping("/leaveRequestModel")
-	public LeaveRequestDTO getMockLeaveRequestDTO() {
-		LeaveRequestDTO obj = new LeaveRequestDTO();
+	public LeaveRequestDto getMockLeaveRequestDTO() {
+		LeaveRequestDto obj = new LeaveRequestDto();
 		return obj;
+
+	}
+	
+	@GetMapping("/leaveApprovedto")
+	public LeaveRequestProcessDto getMockLeaveApproveDTO() {
+		LeaveRequestProcessDto obj= new LeaveRequestProcessDto();
+		return obj;
+
 	}
 
 	@GetMapping("/leaverequest")
@@ -100,18 +108,32 @@ public class LeaveRequestController {
 	/*
 	 * Set the Status Id:1 for approve leave request
 	 */
-	@PutMapping("/leaverequest/{id}/{status}/{userId}")
-	public ResponseEntity<String> approveLeaveRequest(@PathVariable("id") int id, @PathVariable("status") int statusId,
-			@PathVariable("userId") int userId) {
-		boolean sucessStatus = leaveRequestService.editLeaveRequestStatus(id, statusId);
-		boolean successApproval = leaveRequestService.editLeaveRequestApproval(id, userId);
-		String result = "Status not changed";
-		ResponseEntity<String> status = new ResponseEntity<>(result, HttpStatus.FORBIDDEN);
+//	@PostMapping("/leaverequest/{id}/{statusId}/{userId}")
+//	public ResponseEntity<String> approveLeaveRequest(@PathVariable("id") int id, @PathVariable("statusId") int statusId,
+//			@PathVariable("userId") int userId) {
+//		boolean sucessStatus = leaveRequestService.editLeaveRequestStatus(id, statusId);
+//		boolean successApproval = leaveRequestService.editLeaveRequestApproval(id, userId);
+//		String result = "Status not changed";
+//		ResponseEntity<String> status = new ResponseEntity<>(result, HttpStatus.FORBIDDEN);
+//		if (sucessStatus && successApproval) {
+//			result = "Status changed sucessfully";
+//			status = new ResponseEntity<>(result, HttpStatus.OK);
+//		}
+//		return status;
+//
+//	}
+	
+	@PostMapping("/leaverequest/leaveapprove")
+	public HttpStatus approveLeaveRequest(@RequestBody LeaveRequestProcessDto lvRePrObj) {
+		boolean sucessStatus = leaveRequestService.editLeaveRequestStatus(lvRePrObj.getLeaveRequestId(),lvRePrObj.getStatusId());
+		boolean successApproval = leaveRequestService.editLeaveRequestApproval(lvRePrObj.getLeaveRequestId(), lvRePrObj.getProcessedBy());
+	
 		if (sucessStatus && successApproval) {
-			result = "Status changed sucessfully";
-			status = new ResponseEntity<>(result, HttpStatus.OK);
+			return HttpStatus.CREATED;
+
 		}
-		return status;
+
+		return HttpStatus.BAD_REQUEST;
 
 	}
 
@@ -119,16 +141,29 @@ public class LeaveRequestController {
 	/*
 	 * Set the Status Id:1 for approve leave request
 	 */
-	@PutMapping("/leaverequest/rejectleave/{statusid}")
-	public boolean addRejectLeave(@RequestBody RejectLeaveRequest rejectLeaveRequest,
-			@PathVariable("id") int statusId) {
-		leaveRequestService.editLeaveRequestStatus(rejectLeaveRequest.getLeaveRequestId().getId(), statusId);
-		LeaveRequest leaveRequest = leaveRequestService
-				.findLeaveRequestById(rejectLeaveRequest.getLeaveRequestId().getId());
+	@PostMapping("/leaverequest/rejectleave")
+	public ResponseEntity<String> addRejectLeave(@RequestBody LeaveRequestProcessDto lvRePrObj) {
+		boolean rejectStatus = leaveRequestService.editLeaveRequestStatus(lvRePrObj.getLeaveRequestId(),lvRePrObj.getStatusId());
+		boolean rejectBy = leaveRequestService.editLeaveRequestApproval(lvRePrObj.getLeaveRequestId(), lvRePrObj.getProcessedBy());
+		
+		LeaveRequest leaveRequest = leaveRequestService.findLeaveRequestById(lvRePrObj.getLeaveRequestId());
 		leaveService.increaseRemaingLeaveDays(leaveRequest.getLeaveDays(), leaveRequest.getUserId().getId(),
 				leaveRequest.getLeaveTypeId().getId());
-		rejectLeaveRequestService.addRejectLeaveRequest(rejectLeaveRequest);
-		return true;
+		
+		RejectLeaveRequest rejectLeaveRequest=new RejectLeaveRequest();
+		rejectLeaveRequest.setLeaveRequestId(leaveRequest);
+		User rejectByuser=userService.getUserById(lvRePrObj.getProcessedBy());
+		rejectLeaveRequest.setRejectedBy(rejectByuser);
+		rejectLeaveRequest.setRejectReason(lvRePrObj.getRejectreason());
+		
+		boolean saveRejectDetails=rejectLeaveRequestService.addRejectLeaveRequest(rejectLeaveRequest);
+		String result = "Problem in rejection";
+		ResponseEntity<String> status = new ResponseEntity<>(result, HttpStatus.FORBIDDEN);
+		if (rejectStatus && rejectBy && saveRejectDetails) {
+			result = "Rejected sucessfully";
+			status = new ResponseEntity<>(result, HttpStatus.OK);
+		}
+		return status;
 	}
 
 	// get details of leave request by user id

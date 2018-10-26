@@ -20,6 +20,8 @@ import com.sgic.hrm.leavesystem.entity.Department;
 import com.sgic.hrm.leavesystem.service.DepartmentService;
 
 @CrossOrigin(origins = "http://localhost:4200", maxAge = 3600)
+//@CrossOrigin(origins = "http://localhost:4401", maxAge = 3600)
+
 @RestController
 public class DepartmentController {
 	@Autowired
@@ -48,9 +50,9 @@ public class DepartmentController {
 		return departmentService.getById(id);
 	}
 
-	@PutMapping("/department")
-	public HttpStatus editDepartment(@RequestBody Department department) {
-		boolean test = departmentService.editDepartment(department);
+	@PutMapping("/department/{id}")
+	public HttpStatus editDepartment(@RequestBody Department department,@PathVariable("id") Integer id) {
+		boolean test = departmentService.editDepartment(department,id);
 		if (test) {
 			return HttpStatus.ACCEPTED;
 		}
