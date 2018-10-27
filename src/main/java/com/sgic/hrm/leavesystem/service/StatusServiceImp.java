@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.sgic.hrm.leavesystem.entity.Status;
+import com.sgic.hrm.leavesystem.entity.User;
 import com.sgic.hrm.leavesystem.repository.StatusRepository;
 
 @Service
@@ -37,6 +38,11 @@ public class StatusServiceImp implements StatusService {
 			return true;
 		}
 		return false;
+	}
+	
+	public Status getStatusById(Integer id) {
+	  Status status = statusRepository.findById(id).get();
+      return status;
 	}
 
 }

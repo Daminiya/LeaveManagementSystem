@@ -26,6 +26,7 @@ import com.sgic.hrm.leavesystem.service.LeaveRequestService;
 import com.sgic.hrm.leavesystem.service.LeaveService;
 import com.sgic.hrm.leavesystem.service.LeaveTypeService;
 import com.sgic.hrm.leavesystem.service.RejectLeaveRequestService;
+import com.sgic.hrm.leavesystem.service.StatusService;
 import com.sgic.hrm.leavesystem.service.UserService;
 
 @CrossOrigin(origins = "http://localhost:4200", maxAge = 3600)
@@ -42,6 +43,8 @@ public class LeaveRequestController {
 	UserService userService;
 	@Autowired
 	LeaveTypeService leaveTypeService;
+	@Autowired
+	StatusService statusService;
 
 	// Done by kowsikan
 //	@PostMapping("/leaverequest")
@@ -61,6 +64,7 @@ public class LeaveRequestController {
 
 		leaveRequest.setUserId(userService.getUserById(leaveRequestDTO.getUserId()));
 		leaveRequest.setLeaveTypeId(leaveTypeService.getLeaveTypeById(leaveRequestDTO.getLeaveTypeId()));
+		leaveRequest.setStatusId(statusService.getStatusById(leaveRequestDTO.getStatusId()));
 
 		leaveRequestService.addLeaveRequest(leaveRequest);
 		// save record in leave request table
