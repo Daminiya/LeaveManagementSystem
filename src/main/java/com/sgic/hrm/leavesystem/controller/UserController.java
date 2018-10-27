@@ -115,8 +115,6 @@ public class UserController {
 	@PutMapping("/user/{id}")
 	public boolean editUser(@PathVariable("id") Integer id,@RequestBody EditUserDto editUser) {
 		User user = userService.getUserById(id);
-		
-	
 		user.setEmail(editUser.getEmail());
 		user.setLastName(editUser.getLastName());
 		user.setFirstName(editUser.getFirstName());

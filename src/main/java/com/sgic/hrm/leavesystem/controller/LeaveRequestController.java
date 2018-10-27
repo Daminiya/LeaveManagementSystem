@@ -146,7 +146,7 @@ public class LeaveRequestController {
 	 * Set the Status Id:1 for approve leave request
 	 */
 	@PostMapping("/leaverequest/rejectleave")
-	public ResponseEntity<String> addRejectLeave(@RequestBody LeaveRequestProcessDto lvRePrObj) {
+	public HttpStatus addRejectLeave(@RequestBody LeaveRequestProcessDto lvRePrObj) {
 		boolean rejectStatus = leaveRequestService.editLeaveRequestStatus(lvRePrObj.getLeaveRequestId(),lvRePrObj.getStatusId());
 		boolean rejectBy = leaveRequestService.editLeaveRequestApproval(lvRePrObj.getLeaveRequestId(), lvRePrObj.getProcessedBy());
 		
@@ -161,13 +161,12 @@ public class LeaveRequestController {
 		rejectLeaveRequest.setRejectReason(lvRePrObj.getRejectreason());
 		
 		boolean saveRejectDetails=rejectLeaveRequestService.addRejectLeaveRequest(rejectLeaveRequest);
-		String result = "Problem in rejection";
-		ResponseEntity<String> status = new ResponseEntity<>(result, HttpStatus.FORBIDDEN);
+	
+		
 		if (rejectStatus && rejectBy && saveRejectDetails) {
-			result = "Rejected sucessfully";
-			status = new ResponseEntity<>(result, HttpStatus.OK);
+			return HttpStatus.ACCEPTED;
 		}
-		return status;
+		return HttpStatus.BAD_REQUEST;
 	}
 
 	// get details of leave request by user id
