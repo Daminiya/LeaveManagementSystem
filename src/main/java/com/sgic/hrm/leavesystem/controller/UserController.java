@@ -60,7 +60,6 @@ public class UserController {
 
 		Department department = departmentService.getById(userModel.getDepartmentId());
 		user.setDepartmentId(department);
-
 		user.setEmail(userModel.getEmail());
 		user.setJoinDate(userModel.getJoinDate());
 		user.setServicePeriod(userModel.getServicePeriod());
@@ -122,7 +121,7 @@ public class UserController {
 		user.setRoleId(role);
 		Department department=departmentService.getById(editUser.getDepartmentId());
 		user.setDepartmentId(department);
-		
+		user.setServicePeriod(editUser.getServicePeriod());
 		
 		if (userService.addUser(user)) {
 			return true;
