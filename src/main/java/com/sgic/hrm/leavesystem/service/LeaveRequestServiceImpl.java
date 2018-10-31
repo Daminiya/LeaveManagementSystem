@@ -39,6 +39,11 @@ public class LeaveRequestServiceImpl implements LeaveRequestService {
 	public List<LeaveRequest> getData() {
 		return leaveRequestRepository.findAll();
 	}
+	
+	@Override
+    public List<LeaveRequest> getDataBySort() {
+        return leaveRequestRepository.sortByUpdatedAt();
+    }
 
 	@Override
 	public LeaveRequest findLeaveRequestById(int id) {

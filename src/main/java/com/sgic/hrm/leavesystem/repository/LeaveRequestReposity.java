@@ -20,6 +20,9 @@ public interface LeaveRequestReposity extends JpaRepository<LeaveRequest, Intege
 	@Query("select lr from LeaveRequest as lr where lr.startDate <= ?1 AND lr.endDate >=?1")
 	public List<LeaveRequest> findByDate(ZonedDateTime abc);
 
-	@Query("select lr from LeaveRequest as lr where lr.userId.id = ?1")
+	@Query("select lr from LeaveRequest as lr where lr.userId.id = ?1 order by lr.updatedAt desc")
 	List<LeaveRequest> findByUser(Integer id);
+	
+	@Query("select lr from LeaveRequest as lr order by lr.updatedAt desc")
+	List<LeaveRequest> sortByUpdatedAt();
 }

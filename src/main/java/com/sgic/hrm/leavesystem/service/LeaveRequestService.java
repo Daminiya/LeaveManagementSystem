@@ -29,5 +29,7 @@ public interface LeaveRequestService {
 
 	// date wise pick the leave request records done by fasla
 	public List<LeaveRequest> findByDate(ZonedDateTime date);
+	
+	public List<LeaveRequest> getDataBySort();
 
 }

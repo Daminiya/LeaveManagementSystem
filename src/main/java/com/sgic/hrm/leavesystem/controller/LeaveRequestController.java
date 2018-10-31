@@ -96,6 +96,11 @@ public class LeaveRequestController {
 	public List<LeaveRequest> getData() {
 		return leaveRequestService.getData();
 	}
+	
+	@GetMapping("/leaverequest/sort")
+    public List<LeaveRequest> getDataBySort() {
+        return leaveRequestService.getDataBySort();
+    }
 
 	// Bone by Pakikaran
 	@DeleteMapping("/leaverequest/deleteRequest/{id}")
