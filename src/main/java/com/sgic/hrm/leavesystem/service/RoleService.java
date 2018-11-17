@@ -9,6 +9,4 @@ public interface RoleService {
 	List<Role> getAllRoles();
 
 	boolean editRole(Role role, Integer id);
-	
-	boolean deleteRole(Integer id);
 }

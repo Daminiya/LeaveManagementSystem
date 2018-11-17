@@ -36,13 +36,4 @@ public class RoleServiceImpl implements RoleService {
 		return false;
 	}
 
-	@Override
-	public boolean deleteRole(Integer id) {
-		if(roleRepository.getOne(id)!=null){
-			roleRepository.deleteById(id);
-			return true;
-			}
-			return false;
-	}
-
 }
