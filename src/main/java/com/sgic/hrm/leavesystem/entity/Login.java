@@ -5,10 +5,16 @@ import java.time.ZonedDateTime;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.UpdateTimestamp;
 
 @Entity
 @Table(schema = "leave_system", name = "login")
@@ -17,26 +23,42 @@ public class Login implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = -7100182369063236716L;
+
 	@Id
-	private String userName;
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Integer id;
+
+	
+	@OneToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "userName", referencedColumnName = "userName",updatable=false,nullable=false)
+	private User user;
 	private String password;
-	
-	@ManyToOne(cascade= {CascadeType.PERSIST})
-	@JoinColumn(name="role_id")
+
+	@ManyToOne(cascade = { CascadeType.DETACH })
+	@JoinColumn(name = "role_id")
 	private Role roleId;
-	
-	@ManyToOne(cascade= {CascadeType.PERSIST})
-	@JoinColumn(name="department_id")
+
+	@ManyToOne(cascade = { CascadeType.DETACH })
+	@JoinColumn(name = "department_id")
 	private Department departmentId;
-	
+
+	@UpdateTimestamp
 	private ZonedDateTime updatedAt;
 
-	public String getUserName() {
-		return userName;
+	public Integer getId() {
+		return id;
 	}
 
-	public void setUserName(String userName) {
-		this.userName = userName;
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
 	}
 
 	public String getPassword() {

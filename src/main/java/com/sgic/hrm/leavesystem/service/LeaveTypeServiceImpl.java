@@ -9,12 +9,11 @@ import com.sgic.hrm.leavesystem.entity.LeaveType;
 import com.sgic.hrm.leavesystem.repository.LeaveTypeRepository;
 
 @Service
-public class LeaveTypeServiceImpl implements LeaveTypeService{
+public class LeaveTypeServiceImpl implements LeaveTypeService {
 
 	@Autowired
-	LeaveTypeRepository leaveTypeRepository; 
-	
-	
+	LeaveTypeRepository leaveTypeRepository;
+
 	@Override
 	public boolean addLeaveType(LeaveType leavetype) {
 		leaveTypeRepository.save(leavetype);
@@ -23,28 +22,29 @@ public class LeaveTypeServiceImpl implements LeaveTypeService{
 
 	@Override
 	public List<LeaveType> getLeaveType() {
-	
+
 		return leaveTypeRepository.findAll();
 	}
 
 	@Override
 	public boolean editLeaveType(LeaveType leaveType, Integer id) {
-		boolean success=false;
-		if(leaveTypeRepository.getOne(id)!=null) {
+		boolean success = false;
+		if (leaveTypeRepository.getOne(id) != null) {
 			leaveType.setId(id);
 			leaveTypeRepository.save(leaveType);
-			success=true;
+			success = true;
 			return success;
 		}
 		return success;
 	}
-	
+
 	@Override
-	public boolean deleteLeaveType(Integer id){
-		if(leaveTypeRepository.getOne(id)!=null){
+	public boolean deleteLeaveType(Integer id) {
+		if (leaveTypeRepository.getOne(id) != null) {
 			leaveTypeRepository.deleteById(id);
 			return true;
 		}
 		return false;
 	}
+
 }

@@ -1,6 +1,5 @@
 package com.sgic.hrm.leavesystem.controller;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,8 +23,6 @@ public class LeaveTypeController {
 	@Autowired
 	LeaveTypeService leaveTypeService;
 	
-	List<LeaveType> leavetype=new ArrayList<>();
-	
 	@PostMapping("/leavetype")
 	public HttpStatus createLeave(@RequestBody LeaveType leavetype) {
 		boolean res=leaveTypeService.addLeaveType(leavetype);
@@ -38,8 +35,7 @@ public class LeaveTypeController {
 	@GetMapping("/leavetype")
 		public ResponseEntity<List<LeaveType>> viewLeaveType() {
 			List<LeaveType> leavetype = leaveTypeService.getLeaveType();
-			ResponseEntity<List<LeaveType>> response = new ResponseEntity<>(leavetype, HttpStatus.OK);
-			return response;
+			return new ResponseEntity<>(leavetype, HttpStatus.OK);			
 	}
 	
 	@PutMapping("/leavetype/{id}")
