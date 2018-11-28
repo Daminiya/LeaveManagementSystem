@@ -1,0 +1,13 @@
+Two user login...
+1. Admin
+2. Employee
+
+Default username and password:
+
+Employee:
+  username: user
+  password: user
+  
+Admin:
+  username: admin
+  password: admin
